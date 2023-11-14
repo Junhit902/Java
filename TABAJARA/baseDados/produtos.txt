@@ -1,0 +1,7 @@
+
+
+Código do produto: 1
+NOME DO PRODUTO: Chocolate
+Descrição: 70% amargo
+Valor unitário: R$5.98
+Data de validade: 14/11/2023
