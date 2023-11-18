@@ -65,6 +65,7 @@ public class App {
                             break;
                         case 6:
                             JOptionPane.showMessageDialog(null, "Atualizar situação de pagamento de uma compra foi selecionada");
+                            compra.atualizarSituacaoPagamento();
                             break;
                         case 7:
                             JOptionPane.showMessageDialog(null, "Relátorios foi selecionada");

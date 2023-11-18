@@ -419,4 +419,124 @@ public class GerenciarCompra {
             }
         }
     }
+
+    public void atualizarSituacaoPagamento() {
+        // Obtendo o Identificador
+        String identificadorStr = JOptionPane.showInputDialog("Digite o Identificador da compra:");
+
+        // Verificando se o usuário cancelou a entrada
+        if (identificadorStr == null) {
+            return;
+        }
+
+        try {
+            int identificador = Integer.parseInt(identificadorStr);
+
+            // Buscando a compra
+            Compra compra = encontrarCompraPorIdentificador(identificador);
+
+            // Se a compra não foi encontrada, exibe mensagem e retorna
+            if (compra == null) {
+                JOptionPane.showMessageDialog(null, "Compra não encontrada. Verifique o Identificador e tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Exibindo detalhes da compra
+            exibirDetalhesCompra(compra);
+
+            // Exibindo quanto falta pagar
+            float faltaPagar = compra.getFaltaPagar();
+            JOptionPane.showMessageDialog(null, "Falta Pagar: R$ " + String.format("%.2f", faltaPagar), "Situação de Pagamento", JOptionPane.INFORMATION_MESSAGE);
+
+            // Solicitando valor para pagamento
+            float valorPago = obterValorPago(faltaPagar);
+            if (valorPago < 0) {
+                return;  // Usuário cancelou a entrada
+            }
+
+            // Atualizando valores na compra
+            float novoTotalPago = compra.getTotalPago() + valorPago;
+            float novoFaltaPagar = faltaPagar - valorPago;
+
+            compra.setTotalPago(novoTotalPago);
+            compra.setFaltaPagar(novoFaltaPagar);
+
+            // Atualizando no arquivo
+            atualizarArquivoCompras();
+
+            JOptionPane.showMessageDialog(null, "Pagamento registrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Identificador inválido. Operação cancelada.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void exibirDetalhesCompra(Compra compra) {
+        StringBuilder detalhesCompra = new StringBuilder("Detalhes da Compra:\n");
+
+        detalhesCompra.append("Identificador: ").append(compra.getIdentificador()).append("\n");
+        detalhesCompra.append("Data da Compra: ").append(new SimpleDateFormat("dd/MM/yyyy").format(compra.getDataCompra())).append("\n");
+
+        // Exibindo CPF ou CNPJ do cliente
+        if (compra.getCpf() != null) {
+            detalhesCompra.append("Cliente (CPF): ").append(compra.getCpf().getNome()).append(" - ").append(((PessoaFisica) compra.getCpf()).getCpf()).append("\n");
+        } else if (compra.getCnpj() != null) {
+            detalhesCompra.append("Cliente (CNPJ): ").append(compra.getCnpj().getNome()).append(" - ").append(((PessoaJuridica) compra.getCnpj()).getCnpj()).append("\n");
+        }
+
+        detalhesCompra.append("Valor Total da Compra: R$ ").append(String.format("%.2f", compra.getValorTotal())).append("\n");
+
+        // Exibindo detalhes dos itens comprados
+        detalhesCompra.append("Itens Comprados:\n");
+        for (ItemCompra item : compra.getItensCompra()) {
+            detalhesCompra.append("  - ").append(item.getQuantidade()).append("x ").append(item.getProduto().getNomeProduto())
+                    .append(" - R$ ").append(String.format("%.2f", item.getProduto().getValorUnitario())).append("\n");
+        }
+
+        detalhesCompra.append("Total Pago: R$ ").append(String.format("%.2f", compra.getTotalPago())).append("\n");
+        detalhesCompra.append("Falta Pagar: R$ ").append(String.format("%.2f", compra.getFaltaPagar())).append("\n");
+
+        JOptionPane.showMessageDialog(null, detalhesCompra.toString(), "Detalhes da Compra", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+
+    private Compra encontrarCompraPorIdentificador(int identificador) {
+        for (Compra compra : listaCompras) {
+            if (compra.getIdentificador() == identificador) {
+                return compra;
+            }
+        }
+        return null; // Retorna null se não encontrar a compra
+    }
+
+    private float obterValorPago(float faltaPagar) {
+        try {
+            String valorPagoStr = JOptionPane.showInputDialog("Digite o valor que deseja pagar (obs: insira com ponto ao invés da vírgula):");
+
+            // Verificar se o usuário cancelou a entrada
+            if (valorPagoStr == null) {
+                return -1;
+            }
+
+            float valorPago = Float.parseFloat(valorPagoStr);
+
+            // Verificar se o valor pago é válido
+            while (valorPago < 0 || valorPago > faltaPagar) {
+                valorPagoStr = JOptionPane.showInputDialog("Valor excedeu o valor total a pagar. Digite novamente o valor que deseja pagar:");
+
+                // Verificar se o usuário cancelou a entrada
+                if (valorPagoStr == null) {
+                    return -1;
+                }
+
+                valorPago = Float.parseFloat(valorPagoStr);
+            }
+
+            return valorPago;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Entrada inválida. Operação cancelada.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
+    }
+
 }
