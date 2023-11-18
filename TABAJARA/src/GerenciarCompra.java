@@ -250,7 +250,7 @@ public class GerenciarCompra {
     }
 
     private void salvarCompraEmArquivo(Compra compra) {
-        String pastaBaseDados = "C:\\Visual Studio Code\\Java\\TABAJARA\\baseDados";
+        String pastaBaseDados = "C:\\GitHub\\Java\\TABAJARA\\baseDados";
         File arquivo = new File(pastaBaseDados, "compras.txt");
 
         try {
@@ -262,30 +262,31 @@ public class GerenciarCompra {
                 arquivo.createNewFile();
             }
 
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo, true))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo, false))) {
                 // Escrevendo as informações da compra no arquivo
-                writer.write("==== COMPRA ====\n");
+                writer.write("\n\n==== COMPRA ====\n");
                 writer.write("Identificador: " + compra.getIdentificador() + "\n");
                 writer.write("Data da Compra: " + new SimpleDateFormat("dd/MM/yyyy").format(compra.getDataCompra()) + "\n");
 
                 // Exibindo CPF ou CNPJ do cliente
                 if (compra.getCpf() != null) {
-                    writer.write("Cliente (CPF): " + compra.getCpf().getNome() + " - " + ((PessoaFisica) compra.getCpf()).getCpf() + "\n");
+                    writer.write("Cliente (CPF): " + ((PessoaFisica) compra.getCpf()).getCpf() + "\n");
                 } else if (compra.getCnpj() != null) {
-                    writer.write("Cliente (CNPJ): " + compra.getCnpj().getNome() + " - " + ((PessoaJuridica) compra.getCnpj()).getCnpj() + "\n");
+                    writer.write("Cliente (CNPJ): " + ((PessoaJuridica) compra.getCnpj()).getCnpj() + "\n");
                 }
 
-                writer.write("Valor Total: R$ " + String.format("%.2f", compra.getValorTotal()) + "\n");
+                writer.write("Valor Total: R$" + compra.getValorTotal() + "\n");
                 writer.write("---- Itens Comprados ----\n");
 
                 // Ajuste para exibir detalhes dos itens comprados
                 for (ItemCompra item : compra.getItensCompra()) {
-                    writer.write("Nome do produto: " + item.getProduto().getNomeProduto() + " - R$ " + String.format("%.2f", item.getProduto().getValorUnitario()) + "\n");
-                    writer.write("Quantidade: " + item.getQuantidade() + "\n\n");
+                    writer.write("Nome do produto: " + item.getProduto().getNomeProduto() +"\n");
+                    writer.write("Preço unitário: R$" +item.getProduto().getValorUnitario() + "\n");
+                    writer.write("Quantidade: " + item.getQuantidade() + "\n");
                 }
 
-                writer.write("Total Pago: R$ " + String.format("%.2f", compra.getTotalPago()) + "\n");
-                writer.write("Falta Pagar: R$ " + String.format("%.2f", compra.getFaltaPagar()) + "\n\n");
+                writer.write("Total Pago: R$" + compra.getTotalPago() + "\n");
+                writer.write("Falta Pagar: R$" + compra.getFaltaPagar() + "\n\n");
 
                 JOptionPane.showMessageDialog(null, "Compra salva no arquivo 'compras.txt' com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -294,85 +295,128 @@ public class GerenciarCompra {
         }
     }
 
-    public void carregarComprasDoArquivo() {
-        String pastaBaseDados = "C:\\Visual Studio Code\\Java\\TABAJARA\\baseDados";
-        File arquivo = new File(pastaBaseDados, "compras.txt");
+    public void atualizarArquivoCompras() {
+        String pastaBaseDados = "C:\\GitHub\\Java\\TABAJARA\\baseDados";
+        File arquivoOriginal = new File(pastaBaseDados, "compras.txt");
 
-        if (!arquivo.exists()) {
-            JOptionPane.showMessageDialog(null, "O arquivo 'compras.txt' não existe. Nenhuma compra carregada.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
+        try {
+            if (!arquivoOriginal.getParentFile().exists()) {
+                arquivoOriginal.getParentFile().mkdirs();
+            }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
-            String linha;
-            Compra compra = null;
-            List<ItemCompra> itensCompra = null;
+            if (!arquivoOriginal.exists()) {
+                arquivoOriginal.createNewFile();
+            }
 
-            while ((linha = reader.readLine()) != null) {
-                // Identifica o início de uma nova compra
-                if (linha.startsWith("==== COMPRA ====")) {
-                    if (compra != null) {
-                        // Adiciona a compra à lista
-                        listaCompras.add(compra);
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivoOriginal, false))) {
+                for (Compra compra : listaCompras) {
+                    // Escreva as informações da compra no arquivo, da mesma maneira que no método salvarCompraEmArquivo
+                    writer.write("\n\n==== COMPRA ====\n");
+                    writer.write("Identificador: " + compra.getIdentificador() + "\n");
+                    writer.write("Data da Compra: " + new SimpleDateFormat("dd/MM/yyyy").format(compra.getDataCompra()) + "\n");
+
+                    // Exibindo CPF ou CNPJ do cliente
+                    if (compra.getCpf() != null) {
+                        writer.write("Cliente (CPF): " + ((PessoaFisica) compra.getCpf()).getCpf() + "\n");
+                    } else if (compra.getCnpj() != null) {
+                        writer.write("Cliente (CNPJ): " + ((PessoaJuridica) compra.getCnpj()).getCnpj() + "\n");
                     }
 
-                    // Inicia a leitura de uma nova compra
-                    compra = new Compra();
-                    itensCompra = new ArrayList<>();
-                } else if (linha.startsWith("Identificador: ")) {
-                    compra.setIdentificador(Integer.parseInt(linha.substring("Identificador: ".length()).trim()));
-                } else if (linha.startsWith("Data da Compra: ")) {
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                    compra.setDataCompra(dateFormat.parse(linha.substring("Data da Compra: ".length()).trim()));
-                } else if (linha.startsWith("Cliente (CPF): ")) {
-                    // Verifica se é um cliente Pessoa Física
-                    String cpf = linha.substring("Cliente (CPF): ".length(), linha.indexOf(" - ")).trim();
-                    Cliente cliente = gerenciarCliente.encontrarClientePorCPF(cpf);
-                    if (cliente instanceof PessoaFisica) {
-                        compra.setCpf((PessoaFisica) cliente);
-                    } else {
-                        // Tratando o caso em que o cliente não é Pessoa Física (por exemplo, Pessoa Jurídica)
-                        JOptionPane.showMessageDialog(null, "Cliente encontrado não é Pessoa Física. Operação cancelada.", "Erro", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                } else if (linha.startsWith("Cliente (CNPJ): ")) {
-                    // Verifica se é um cliente Pessoa Jurídica
-                    String cnpj = linha.substring("Cliente (CNPJ): ".length(), linha.indexOf(" - ")).trim();
-                    Cliente cliente = gerenciarCliente.encontrarClientePessoaJuridicaPorCNPJ(cnpj);
+                    writer.write("Valor Total: R$" + compra.getValorTotal() + "\n");
+                    writer.write("---- Itens Comprados ----\n");
 
-                    if (cliente instanceof PessoaJuridica) {
-                        compra.setCnpj((PessoaJuridica) cliente);
-                    } else {
-                        // Tratando o caso em que o cliente não é Pessoa Jurídica (por exemplo, Pessoa Física)
-                        JOptionPane.showMessageDialog(null, "Cliente encontrado não é Pessoa Jurídica. Operação cancelada.", "Erro", JOptionPane.ERROR_MESSAGE);
-                        return;
+                    for (ItemCompra item : compra.getItensCompra()) {
+                        writer.write("Nome do produto: " + item.getProduto().getNomeProduto() + "\n");
+                        writer.write("Preço unitário: R$" +item.getProduto().getValorUnitario() + "\n");
+                        writer.write("Quantidade: " + item.getQuantidade() + "\n");
                     }
-                } else if (linha.startsWith("Valor Total: ")) {
-                    compra.setValorTotal(Float.parseFloat(linha.substring("Valor Total: R$ ".length()).trim()));
-                } else if (linha.startsWith("---- Itens Comprados ----")) {
-                    // Inicia a leitura dos itens comprados
-                    itensCompra.clear();
-                } else if (linha.startsWith("Nome do produto: ")) {
-                    // Adiciona o item à lista de itens
-                    String nomeProduto = linha.substring("Nome do produto: ".length()).trim();
-                    float valorUnitario = Float.parseFloat(reader.readLine().substring(" - R$ ".length()).trim());
-                    int quantidade = Integer.parseInt(reader.readLine().substring("Quantidade: ".length()).trim());
-                    Produto produto = new Produto(nomeProduto, valorUnitario);
-                    itensCompra.add(new ItemCompra(quantidade, produto));
-                } else if (linha.startsWith("Total Pago: ")) {
-                    compra.setTotalPago(Float.parseFloat(linha.substring("Total Pago: R$ ".length()).trim()));
-                } else if (linha.startsWith("Falta Pagar: ")) {
-                    compra.setFaltaPagar(Float.parseFloat(linha.substring("Falta Pagar: R$ ".length()).trim()));
+
+                    writer.write("Total Pago: R$" + compra.getTotalPago() + "\n");
+                    writer.write("Falta Pagar: R$" + compra.getFaltaPagar() + "\n\n");
                 }
-            }
 
-            // Adiciona a última compra à lista
-            if (compra != null) {
-                listaCompras.add(compra);
+                JOptionPane.showMessageDialog(null, "Arquivo 'compras.txt' atualizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Erro ao atualizar o arquivo 'compras.txt': " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (IOException | ParseException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao carregar compras do arquivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao criar o arquivo 'compras.txt': " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
+    public void carregarComprasDoArquivo() {
+        String pastaBaseDados = "C:\\GitHub\\Java\\TABAJARA\\baseDados";
+        File arquivo = new File(pastaBaseDados, "compras.txt");
+
+        if (arquivo.exists()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
+                String linha;
+
+                while ((linha = reader.readLine()) != null) {
+                    if (linha.startsWith("==== COMPRA ====")) {
+                        Compra compra = new Compra();
+                        List<ItemCompra> itensCompra = new ArrayList<>();
+                        while ((linha = reader.readLine()) != null && !linha.isEmpty()) {
+                            if (linha.startsWith("Identificador: ")) {
+                                compra.setIdentificador(Integer.parseInt(linha.replace("Identificador: ", "")));
+                            } else if (linha.startsWith("Data da Compra: ")) {
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                                compra.setDataCompra(dateFormat.parse(linha.replace("Data da Compra: ", "").trim()));
+                            } else if (linha.startsWith("Cliente (CPF): ")) {
+                                // Verifica se é um cliente Pessoa Física
+                                String cpf = linha.replace("Cliente (CPF): ", "").trim();
+
+                                // Encontrar o cliente com base no CPF
+                                Cliente clientePF = gerenciarCliente.encontrarClientePorCPF(cpf);
+                                PessoaFisica pf = (PessoaFisica) clientePF;
+                                if (clientePF != null) {
+                                    compra.setCpf(pf);
+                                } else {
+                                    // Tratando o caso em que o cliente não é encontrado
+                                    JOptionPane.showMessageDialog(null, "Cliente com CPF '" + cpf + "' não encontrado. Operação cancelada.", "Erro", JOptionPane.ERROR_MESSAGE);
+                                    return;
+                                }
+                            }  else if (linha.startsWith("Cliente (CNPJ): ")) {
+                                // Verifica se é um cliente Pessoa Jurídica
+                                String cnpj = linha.replace("Cliente (CNPJ): ", "").trim();
+
+                                // Encontrar o cliente com base no CNPJ
+                                Cliente clientePJ = gerenciarCliente.encontrarClientePessoaJuridicaPorCNPJ(cnpj);
+                                PessoaJuridica pj = (PessoaJuridica) clientePJ;
+
+                                if (clientePJ != null) {
+                                    compra.setCnpj(pj);
+                                } else {
+                                    // Tratando o caso em que o cliente não é encontrado
+                                    JOptionPane.showMessageDialog(null, "Cliente com CNPJ '" + cnpj + "' não encontrado. Operação cancelada.", "Erro", JOptionPane.ERROR_MESSAGE);
+                                    return;
+                                }
+                            } else if (linha.startsWith("Valor Total: ")) {
+                                compra.setValorTotal(Float.parseFloat(linha.replace("Valor Total: R$", "").trim()));
+                            } else if (linha.startsWith("Nome do produto: ")) {
+                                String nomeProduto = linha.replace("Nome do produto: ", "").trim();
+                                float valorUnitario = Float.parseFloat(reader.readLine().replace("Preço unitário: R$", "").trim());
+
+                                linha = reader.readLine();
+                                int quantidade = Integer.parseInt(linha.replace("Quantidade: ", "").trim());
+
+                                Produto produto = new Produto(nomeProduto, valorUnitario);
+                                itensCompra.add(new ItemCompra(quantidade, produto));
+                            } else if (linha.startsWith("Total Pago: ")) {
+                                compra.setTotalPago(Float.parseFloat(linha.replace("Total Pago: R$", "").trim()));
+                            } else if (linha.startsWith("Falta Pagar: ")) {
+                                compra.setFaltaPagar(Float.parseFloat(linha.replace("Falta Pagar: R$", "").trim()));
+                            }
+                        }
+
+                        // Adiciona a compra à lista
+                        compra.setItensCompra(itensCompra);
+                        listaCompras.add(compra);
+                    }
+                }
+            } catch (IOException | ParseException e) {
+                JOptionPane.showMessageDialog(null, "Erro ao carregar compras do arquivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
 }

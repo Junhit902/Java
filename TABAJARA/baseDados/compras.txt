@@ -1,12 +1,14 @@
+
+
 ==== COMPRA ====
 Identificador: 1
-Data da Compra: 13/11/2023
-Cliente (CPF): THIAGO JUN HONMA - 235.276.358-40
-Valor Total: R$ 59,80
+Data da Compra: 18/11/2023
+Cliente (CPF): 235.276.358-40
+Valor Total: R$60.0
 ---- Itens Comprados ----
-Nome do produto: Chocolate - R$ 5,98
+Nome do produto: Chocolate
+Preço unitário: R$6.0
 Quantidade: 10
-
-Total Pago: R$ 0,00
-Falta Pagar: R$ 59,80
+Total Pago: R$60.0
+Falta Pagar: R$0.0
 

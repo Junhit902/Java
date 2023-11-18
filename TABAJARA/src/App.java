@@ -68,14 +68,14 @@ public class App {
                             break;
                         case 7:
                             JOptionPane.showMessageDialog(null, "Relátorios foi selecionada");
-                            produto.listarProdutosEDeletarProdutoPeloIndice();
+
                             break;
                         case 8:
                         JOptionPane.showMessageDialog(null, "Sair foi selecionada");
                         JOptionPane.showMessageDialog(null, "Saindo...");
                         cliente.atualizarArquivoClientes();
                         produto.atualizarArquivoProdutos();
-                        System.exit(0); // Encerre o programa
+                        compra.atualizarArquivoCompras();
                             break;
                         default:
                             JOptionPane.showMessageDialog(null, "Opção inválida!", "Opção inserida: " + opcaoStr, JOptionPane.ERROR_MESSAGE);

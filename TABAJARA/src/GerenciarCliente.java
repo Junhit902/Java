@@ -146,7 +146,7 @@ public class GerenciarCliente {
     }
 
     public void salvarClienteEmArquivo(Cliente cliente, Object clienteSelecionado) {
-        String pastaBaseDados = "C:\\Visual Studio Code\\Java\\TABAJARA\\baseDados";
+        String pastaBaseDados = "C:\\GitHub\\Java\\TABAJARA\\baseDados";
         File arquivo = new File(pastaBaseDados, "clientes.txt");
 
         try {
@@ -180,7 +180,7 @@ public class GerenciarCliente {
     }
 
     public void atualizarArquivoClientes() {
-        String pastaBaseDados = "C:\\Visual Studio Code\\Java\\TABAJARA\\baseDados";
+        String pastaBaseDados = "C:\\GitHub\\Java\\TABAJARA\\baseDados";
         File arquivoOriginal = new File(pastaBaseDados, "clientes.txt");
 
         try {
@@ -216,7 +216,7 @@ public class GerenciarCliente {
     }
 
     public void deletarpeloCPFouCnpj() {
-        ImageIcon icon = new ImageIcon("C:\\Visual Studio Code\\Java\\TABAJARA\\icons\\warning.png");
+        ImageIcon icon = new ImageIcon("C:\\GitHub\\Java\\TABAJARA\\icons\\warning.png");
         if (listaClientes.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Nenhum cliente cadastrado para deletar.", "Aviso", JOptionPane.INFORMATION_MESSAGE, icon);
             return;
@@ -318,7 +318,7 @@ public class GerenciarCliente {
 
 
     public void deletarClientePeloNome() {
-         ImageIcon icon = new ImageIcon("C:\\Visual Studio Code\\Java\\TABAJARA\\icons\\warning.png");
+         ImageIcon icon = new ImageIcon("C:\\GitHub\\Java\\TABAJARA\\icons\\warning.png");
         if (listaClientes.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Nenhum cliente cadastrado para deletar.", "Aviso", JOptionPane.INFORMATION_MESSAGE, icon);
             return;
@@ -361,7 +361,7 @@ public class GerenciarCliente {
     }
 
     public void carregarClientesDoArquivo() {
-        String pastaBaseDados = "C:\\Visual Studio Code\\Java\\TABAJARA\\baseDados";
+        String pastaBaseDados = "C:\\GitHub\\Java\\TABAJARA\\baseDados";
         File arquivo = new File(pastaBaseDados, "clientes.txt");
 
         if (arquivo.exists()) {

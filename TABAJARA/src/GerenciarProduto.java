@@ -55,7 +55,7 @@ public class GerenciarProduto {
 
 
 public void salvarProdutosEmArquivo() {
-    String pastaBaseDados = "C:\\Visual Studio Code\\Java\\TABAJARA\\baseDados";
+    String pastaBaseDados = "C:\\GitHub\\Java\\TABAJARA\\baseDados";
     File arquivo = new File(pastaBaseDados, "produtos.txt");
 
     try {
@@ -99,7 +99,7 @@ public void salvarProdutosEmArquivo() {
     }
 
     public void carregarProdutosDoArquivo() {
-        String pastaBaseDados = "C:\\Visual Studio Code\\Java\\TABAJARA\\baseDados";
+        String pastaBaseDados = "C:\\GitHub\\Java\\TABAJARA\\baseDados";
         File arquivo = new File(pastaBaseDados, "produtos.txt");
 
         if (arquivo.exists()) {
@@ -131,7 +131,7 @@ public void salvarProdutosEmArquivo() {
     }
 
     public void atualizarArquivoProdutos() {
-        String pastaBaseDados = "C:\\Visual Studio Code\\Java\\TABAJARA\\baseDados";
+        String pastaBaseDados = "C:\\GitHub\\Java\\TABAJARA\\baseDados";
         File arquivo = new File(pastaBaseDados, "produtos.txt");
 
         try {
@@ -166,42 +166,6 @@ public void salvarProdutosEmArquivo() {
             }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar o arquivo 'produtos.txt': " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    public void listarProdutosEDeletarProdutoPeloIndice() {
-        if (listaProdutos.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Nenhum produto cadastrado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-
-        while (true) {
-            // Listando todos os produtos cadastrados com um índice
-            for (int i = 0; i < listaProdutos.size(); i++) {
-                Produto produto = listaProdutos.get(i);
-                System.out.println("[" + i + "] " + produto.getNomeProduto());
-            }
-
-            try {
-                int escolha = Integer.parseInt(JOptionPane.showInputDialog("Digite o número do produto que deseja excluir (ou -1 para cancelar):"));
-
-                if (escolha == -1) {
-                    JOptionPane.showMessageDialog(null, "Operação cancelada.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                    break;
-                }
-
-                if (escolha >= 0 && escolha < listaProdutos.size()) {
-                    Produto produtoExcluir = listaProdutos.get(escolha);
-                    listaProdutos.remove(produtoExcluir);
-                    salvarProdutosEmArquivo();
-                    JOptionPane.showMessageDialog(null, "Produto com nome '" + produtoExcluir.getNomeProduto() + "' excluído com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                    break; // Sai do loop depois de excluir o produto
-                } else {
-                    JOptionPane.showMessageDialog(null, "Índice inválido. Digite um número válido.", "Erro", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Entrada inválida. Digite um número válido.", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
         }
     }
 
