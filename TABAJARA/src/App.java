@@ -19,6 +19,7 @@ public class App {
         produto.carregarProdutosDoArquivo();
         GerenciarCompra compra = new GerenciarCompra(cliente, produto);
         compra.carregarComprasDoArquivo();
+        Relatorio relatorio = new Relatorio(cliente, produto, compra);
         int opcao;
 
         do {
@@ -69,7 +70,7 @@ public class App {
                             break;
                         case 7:
                             JOptionPane.showMessageDialog(null, "Relátorios foi selecionada");
-
+                            relatorio.exibirRelatorio();
                             break;
                         case 8:
                         JOptionPane.showMessageDialog(null, "Sair foi selecionada");

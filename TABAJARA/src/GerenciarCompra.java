@@ -539,4 +539,254 @@ public class GerenciarCompra {
         }
     }
 
+    public List<Compra> getListaCompras() {
+        return this.listaCompras;
+    }
+
+    public void exibirListaComprasSimplificada(List<Compra> compras) {
+        if (compras.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Não há compras registradas.", "Lista de Compras", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            StringBuilder mensagem = new StringBuilder("Lista de Compras:\n");
+
+            for (Compra compra : compras) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String dataCompraStr = (compra.getDataCompra() != null) ? dateFormat.format(compra.getDataCompra()) : "N/A";
+
+                mensagem.append("Compra ").append(compra.getIdentificador()).append(" - ").append(dataCompraStr)
+                        .append(" - R$").append(compra.getValorTotal()).append("\n");
+            }
+
+            JOptionPane.showMessageDialog(null, mensagem.toString(), "Lista de Compras", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    // (f) Busca de uma compra pelo número;
+    public Compra buscarCompraPorNumero(int numero) {
+        for (Compra compra : getListaCompras()) {
+            if (compra.getIdentificador() == numero) {
+                return compra;
+            }
+        }
+        return null; // Compra não encontrada
+    }
+
+    public void exibirListaComprasSimplificadaComEscolha(List<Compra> compras) {
+        if (compras.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Não há compras registradas.", "Lista de Compras", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            StringBuilder mensagem = new StringBuilder("Lista de Compras:\n");
+
+            for (Compra compra : compras) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String dataCompraStr = (compra.getDataCompra() != null) ? dateFormat.format(compra.getDataCompra()) : "N/A";
+
+                mensagem.append("Compra ").append(compra.getIdentificador()).append(" - ").append(dataCompraStr)
+                        .append(" - R$").append(compra.getValorTotal()).append("\n");
+            }
+
+            // Solicitar que a pessoa insira o identificador da compra
+            String idCompraStr = JOptionPane.showInputDialog(null, mensagem.toString() +
+                    "\n\nDigite o identificador da compra para ver os detalhes:", "Escolha o Identificador", JOptionPane.QUESTION_MESSAGE);
+
+            // Verificar se a pessoa fechou a caixa de diálogo ou cancelou
+            if (idCompraStr == null || idCompraStr.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Operação cancelada.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            try {
+                int idEscolhido = Integer.parseInt(idCompraStr);
+                Compra compraEscolhida = buscarCompraPorNumero(idEscolhido);
+
+                if (compraEscolhida != null) {
+                    exibirDetalhesCompra(compraEscolhida);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Compra não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Formato de identificador inválido.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    // (g) Relação de todas as compras que não foram pagas ainda;
+    public List<Compra> listarComprasNaoPagas() {
+        List<Compra> comprasNaoPagas = new ArrayList<>();
+        for (Compra compra : getListaCompras()) {
+            if (compra.getFaltaPagar() > 0) {
+                comprasNaoPagas.add(compra);
+            }
+        }
+        return comprasNaoPagas;
+    }
+
+    public void exibirComprasNaoPagas() {
+        List<Compra> comprasNaoPagas = listarComprasNaoPagas();
+
+        if (comprasNaoPagas.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Todas as compras estão pagas.", "Compras Pagas", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            StringBuilder mensagem = new StringBuilder("Compras não pagas:\n");
+
+            for (Compra compra : comprasNaoPagas) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String dataCompraStr = (compra.getDataCompra() != null) ? dateFormat.format(compra.getDataCompra()) : "N/A";
+
+                mensagem.append("Compra ").append(compra.getIdentificador()).append(" - ").append(dataCompraStr)
+                        .append(" - R$").append(compra.getValorTotal()).append("\n");
+            }
+
+            JOptionPane.showMessageDialog(null, mensagem.toString(), "Compras Não Pagas", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    // (h) Relação das 10 últimas compras pagas;
+    public List<Compra> listarUltimas10ComprasPagas() {
+        List<Compra> comprasPagas = new ArrayList<>();
+        List<Compra> todasCompras = getListaCompras();
+        // Filtrar apenas as compras pagas
+        todasCompras.stream()
+                .filter(compra -> compra.getTotalPago() == compra.getValorTotal())
+                .sorted(Comparator.comparing(Compra::getDataCompra).reversed())
+                .limit(10)
+                .forEach(comprasPagas::add);
+        return comprasPagas;
+    }
+
+    public void exibirUltimas10ComprasPagas() {
+        List<Compra> ultimas10ComprasPagas = listarUltimas10ComprasPagas();
+
+        if (ultimas10ComprasPagas.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Não há compras pagas registradas.", "Compras Pagas", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            StringBuilder mensagem = new StringBuilder("Últimas 10 compras pagas:\n");
+
+            for (Compra compra : ultimas10ComprasPagas) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String dataCompraStr = (compra.getDataCompra() != null) ? dateFormat.format(compra.getDataCompra()) : "N/A";
+
+                mensagem.append("Compra ").append(compra.getIdentificador()).append(" - ").append(dataCompraStr)
+                        .append(" - R$").append(compra.getValorTotal()).append("\n");
+            }
+
+            JOptionPane.showMessageDialog(null, mensagem.toString(), "Últimas 10 Compras Pagas", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    // (i) Apresentação das informações da compra mais cara;
+    public Compra obterCompraMaisCara() {
+        return getListaCompras().stream()
+                .max(Comparator.comparing(Compra::getValorTotal))
+                .orElse(null);
+    }
+
+    public void exibirCompraMaisCara() {
+        Compra compraMaisCara = obterCompraMaisCara();
+
+        if (compraMaisCara != null) {
+            StringBuilder mensagem = new StringBuilder("Informações da compra mais cara:\n");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String dataCompraStr = (compraMaisCara.getDataCompra() != null) ? dateFormat.format(compraMaisCara.getDataCompra()) : "N/A";
+
+            mensagem.append("Identificador: ").append(compraMaisCara.getIdentificador()).append("\n");
+            mensagem.append("Data da Compra: ").append(dataCompraStr).append("\n");
+            mensagem.append("Cliente: ").append(obterNomeCliente(compraMaisCara)).append("\n");
+            mensagem.append("Valor Total da Compra: R$ ").append(String.format("%.2f", compraMaisCara.getValorTotal())).append("\n");
+
+            JOptionPane.showMessageDialog(null, mensagem.toString(), "Compra Mais Cara", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Não há compras registradas.", "Compra Mais Cara", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private String obterNomeCliente(Compra compra) {
+        if (compra.getCpf() != null) {
+            return ((PessoaFisica) compra.getCpf()).getNome();
+        } else if (compra.getCnpj() != null) {
+            return ((PessoaJuridica) compra.getCnpj()).getNome();
+        } else {
+            return "N/A";
+        }
+    }
+
+      // (j) Apresentação das informações da compra mais barata;
+      public Compra obterCompraMaisBarata() {
+        return getListaCompras().stream()
+                .filter(compra -> compra.getFaltaPagar() == 0) // Considerar apenas compras pagas
+                .min(Comparator.comparing(Compra::getValorTotal))
+                .orElse(null);
+    }
+
+    public void exibirCompraMaisBarata() {
+        Compra compraMaisBarata = obterCompraMaisBarata();
+
+        if (compraMaisBarata != null) {
+            StringBuilder mensagem = new StringBuilder("Informações da compra mais barata:\n");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String dataCompraStr = (compraMaisBarata.getDataCompra() != null) ? dateFormat.format(compraMaisBarata.getDataCompra()) : "N/A";
+
+            mensagem.append("Identificador: ").append(compraMaisBarata.getIdentificador()).append("\n");
+            mensagem.append("Data da Compra: ").append(dataCompraStr).append("\n");
+            mensagem.append("Cliente: ").append(obterNomeCliente(compraMaisBarata)).append("\n");
+            mensagem.append("Valor Total da Compra: R$ ").append(String.format("%.2f", compraMaisBarata.getValorTotal())).append("\n");
+
+            JOptionPane.showMessageDialog(null, mensagem.toString(), "Compra Mais Barata", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Não há compras registradas ou todas estão pendentes de pagamento.", "Compra Mais Barata", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    // (k) Relação do valor total de compras feitas em cada mês nos últimos 12 meses.
+    public List<Double> calcularValorTotalComprasPorMes() {
+        List<Double> valoresPorMes = new ArrayList<>();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -12); // Retrocedendo 12 meses a partir do momento atual
+
+        for (int i = 0; i < 12; i++) {
+            calendar.add(Calendar.MONTH, 1);
+            Date inicioMes = calendar.getTime();
+            calendar.add(Calendar.MONTH, 1);
+            Date fimMes = calendar.getTime();
+
+            double totalComprasMes = getListaCompras().stream()
+                    .filter(compra -> compra.getDataCompra().after(inicioMes) && compra.getDataCompra().before(fimMes))
+                    .mapToDouble(Compra::getValorTotal)
+                    .sum();
+
+            valoresPorMes.add(totalComprasMes);
+        }
+
+        return valoresPorMes;
+    }
+
+    public void exibirValorTotalComprasPorMes() {
+        List<Double> valoresPorMes = calcularValorTotalComprasPorMes();
+
+        if (!valoresPorMes.isEmpty()) {
+            StringBuilder mensagem = new StringBuilder("Valor total de compras nos últimos 12 meses:\n");
+
+            SimpleDateFormat monthFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Calendar calendar = Calendar.getInstance();
+
+            for (int i = 0; i < 12; i++) {
+                calendar.add(Calendar.MONTH, -1);
+                Date inicioMes = calendar.getTime();
+                calendar.add(Calendar.MONTH, 1);
+                Date fimMes = calendar.getTime();
+
+                String nomeMes = monthFormat.format(inicioMes);
+                double totalComprasMes = valoresPorMes.get(i);
+
+                mensagem.append(nomeMes).append(": R$ ").append(String.format("%.2f", totalComprasMes)).append("\n");
+            }
+
+            JOptionPane.showMessageDialog(null, mensagem.toString(), "Valor Total de Compras por Mês", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Não há compras registradas nos últimos 12 meses.", "Valor Total de Compras por Mês", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+
 }

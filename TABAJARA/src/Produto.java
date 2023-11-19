@@ -20,7 +20,7 @@ public class Produto{
         this.nomeProduto = nomeProduto;
         this.valorUnitario = valorUnitario;
     }
-    
+
     //Construtor vazio
     public Produto() {
     }
@@ -63,14 +63,6 @@ public class Produto{
 
     public void setDataValidade(Date dataValidade) {
         this.dataValidade = dataValidade;
-    }
-
-    public boolean estaVencido() {
-        if (dataValidade == null) {
-            return false; // Se a data de validade não estiver definida, o produto não está vencido.
-        }
-        Date dataAtual = new Date(); // Obtém a data atual
-        return dataAtual.after(dataValidade); // Verifica se a data atual é posterior à data de validade.
     }
 
     public String getPreco() {

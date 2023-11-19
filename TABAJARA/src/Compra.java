@@ -92,5 +92,4 @@ public class Compra {
     public void setFaltaPagar(float faltaPagar) {
         this.faltaPagar = faltaPagar;
     }
-
 }

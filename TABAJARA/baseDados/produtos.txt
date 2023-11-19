@@ -5,3 +5,10 @@ NOME DO PRODUTO: Chocolate
 Descrição: 70% amargo
 Valor unitário: R$6.0
 Data de validade: 21/11/2023
+
+
+Código do produto: 2
+NOME DO PRODUTO: Danone
+Descrição: Sabor Chocolate
+Valor unitário: R$3.99
+Data de validade: 17/11/2023

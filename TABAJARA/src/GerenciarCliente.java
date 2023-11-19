@@ -486,4 +486,19 @@ public class GerenciarCliente {
         String listaClientesString = obterListaClientesString();
         JOptionPane.showMessageDialog(null, listaClientesString, "Lista de Clientes", JOptionPane.INFORMATION_MESSAGE);
     }
+
+    // (a) Relação de todos os Clientes que possuem o nome iniciado por uma determinada sequência de caracteres;
+    public List<Cliente> buscarClientesPorNome(String sequencia) {
+        List<Cliente> clientesEncontrados = new ArrayList<>();
+        // Certifique-se de que a lista de clientes não está vazia
+        if (listaClientes != null && !listaClientes.isEmpty()) {
+            for (Cliente cliente : listaClientes) {
+                // Verifique se o nome do cliente inicia com a sequência fornecida (ignorando maiúsculas/minúsculas)
+                if (cliente.getNome().toLowerCase().startsWith(sequencia.toLowerCase())) {
+                    clientesEncontrados.add(cliente);
+                }
+            }
+        }
+        return clientesEncontrados;
+    }
 }

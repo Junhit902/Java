@@ -182,13 +182,6 @@ public void salvarProdutosEmArquivo() {
         return listaProdutos;
     }
 
-    public void limparOperacoesAnteriores() {
-        listaProdutos.clear();
-    }
-
-    public void setListaProdutos(List<Produto> listaProdutosArquivo) {
-    }
-
     // Método para obter uma representação em string da lista de produtos
     public String obterListaProdutosString() {
         StringBuilder sb = new StringBuilder();
@@ -205,5 +198,67 @@ public void salvarProdutosEmArquivo() {
     public void exibirListaProdutos() {
         String listaProdutosString = obterListaProdutosString();
         JOptionPane.showMessageDialog(null, listaProdutosString, "Lista de Produtos", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    // (b) Relação de todos os Produtos
+    public void exibirListaProdutosSimplificada(List<Produto> produtos) {
+        if (produtos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Não há produtos cadastrados.", "Lista de Produtos", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            StringBuilder mensagem = new StringBuilder("Lista de Produtos:\n");
+
+            for (Produto produto : produtos) {
+                mensagem.append(produto.getNomeProduto()).append(" - R$").append(produto.getValorUnitario()).append("\n");
+            }
+
+            JOptionPane.showMessageDialog(null, mensagem.toString(), "Lista de Produtos", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    // (c) Busca de um produto pelo nome;
+    public String buscarProdutoPorNome(String nome) {
+        for (Produto produto : getListaProdutos()) {
+            if (produto.getNomeProduto().equalsIgnoreCase(nome)) {
+                // Produto encontrado, retorna uma String com os detalhes
+                return produto.toString();
+            }
+        }
+        // Produto não encontrado, retorna uma mensagem
+        return "Produto não encontrado com o nome: " + nome;
+    }
+
+    // (d) Relação de produtos que são perecíveis e que estão com a data de validade vencida;
+    public List<Produto> verificarProdutosVencidosParaData(String dataStr) {
+        List<Produto> produtosVencidos = new ArrayList<>();
+
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date dataVerificacao = dateFormat.parse(dataStr);
+
+            for (Produto produto : listaProdutos) {
+                if (produto.getDataValidade() != null && produto.getDataValidade().before(dataVerificacao)) {
+                    produtosVencidos.add(produto);
+                }
+            }
+
+        } catch (ParseException e) {
+            System.out.println("Erro ao converter a data: " + e.getMessage());
+        }
+
+        return produtosVencidos;
+    }
+
+    public void exibirProdutosVencidos(List<Produto> produtosVencidos) {
+        String mensagem = "Produtos Vencidos:\n";
+
+        for (Produto produto : produtosVencidos) {
+            mensagem += produto.toString() + "\n";
+        }
+
+        if (produtosVencidos.isEmpty()) {
+            mensagem = "Não há produtos vencidos.\n";
+        }
+
+        JOptionPane.showMessageDialog(null, mensagem, "Produtos Vencidos", JOptionPane.INFORMATION_MESSAGE);
     }
 }
