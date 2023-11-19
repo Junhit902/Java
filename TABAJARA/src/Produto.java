@@ -1,14 +1,14 @@
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Produto{
+public class Produto {
     private int codigo;
     private String nomeProduto;
     private String descricao;
     private double valorUnitario;
     private Date dataValidade;
 
-    public Produto(int codigoProduto, String nomeProduto, String descricao, double valorUnitario, Date dataValidade2){
+    public Produto(int codigoProduto, String nomeProduto, String descricao, double valorUnitario, Date dataValidade2) {
         this.codigo = codigoProduto;
         this.nomeProduto = nomeProduto;
         this.descricao = descricao;
@@ -21,7 +21,7 @@ public class Produto{
         this.valorUnitario = valorUnitario;
     }
 
-    //Construtor vazio
+    // Construtor vazio
     public Produto() {
     }
 
@@ -74,7 +74,8 @@ public class Produto{
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String dataValidadeStr = (getDataValidade() != null) ? dateFormat.format(getDataValidade()) : "N/A";
 
-        return "\n==== Produto ====" + "\nCódigo: " + codigo + "\nNome do produto: " + nomeProduto + "\nDescrição: " + descricao
+        return "\n==== Produto ====" + "\nCódigo: " + codigo + "\nNome do produto: " + nomeProduto + "\nDescrição: "
+                + descricao
                 + "\nValor unitário: R$" + valorUnitario + "\nData de validade: " + dataValidadeStr;
     }
 }

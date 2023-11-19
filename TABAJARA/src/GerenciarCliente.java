@@ -16,7 +16,8 @@ public class GerenciarCliente {
 
     public void cadastrarCliente() {
         Object[] tiposClientes = { "Pessoa Física", "Pessoa Jurídica" };
-        Object clienteSelecionado = JOptionPane.showInputDialog(null, "Escolha um tipo de cliente", "Cliente", JOptionPane.INFORMATION_MESSAGE, null, tiposClientes, tiposClientes[0]);
+        Object clienteSelecionado = JOptionPane.showInputDialog(null, "Escolha um tipo de cliente", "Cliente",
+                JOptionPane.INFORMATION_MESSAGE, null, tiposClientes, tiposClientes[0]);
 
         if (clienteSelecionado != null) {
             if (clienteSelecionado.equals("Pessoa Física")) {
@@ -39,7 +40,8 @@ public class GerenciarCliente {
         String cpf = JOptionPane.showInputDialog("Digite o seu CPF (123.456.789-01):");
         // Verifica se o nome ou CPF já existem na lista de clientes
         if (clienteFisicaJaCadastrado(nome, cpf)) {
-            JOptionPane.showMessageDialog(null, "Um cliente com o mesmo nome ou CPF já está cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Um cliente com o mesmo nome ou CPF já está cadastrado.", "Erro",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
         cf.setNome(nome);
@@ -53,7 +55,8 @@ public class GerenciarCliente {
                 cf.setDataDeCadastro(dataDeCadastro);
                 Datavalida = true;
             } catch (ParseException e) {
-                JOptionPane.showMessageDialog(null, "Formato de data inválido. Use o formato (Dia/Mês/Ano).", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Formato de data inválido. Use o formato (Dia/Mês/Ano).", "Erro",
+                        JOptionPane.ERROR_MESSAGE);
                 Datavalida = false;
             }
         } while (!Datavalida);
@@ -69,7 +72,8 @@ public class GerenciarCliente {
         cf.setEndereco(enderecof);
         listaClientes.add(cf);
 
-        JOptionPane.showMessageDialog(null, cf.toString() + "\n\nCliente Pessoa Física cadastrado com sucesso.", "Cadastro Concluído", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, cf.toString() + "\n\nCliente Pessoa Física cadastrado com sucesso.",
+                "Cadastro Concluído", JOptionPane.INFORMATION_MESSAGE);
 
         salvarClienteEmArquivo(cf, "Pessoa Física");
     }
@@ -82,7 +86,8 @@ public class GerenciarCliente {
         String cnpj = JOptionPane.showInputDialog("Digite o seu CNPJ:").replaceAll("[^0-9]", "");
         // Verifique se o nome fantasia ou CNPJ já existem na lista de clientes
         if (clienteJuridicoJaCadastrado(nomeFantasia, cnpj)) {
-            JOptionPane.showMessageDialog(null, "Uma empresa com o mesmo nome fantasia ou CNPJ já está cadastrada.", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Uma empresa com o mesmo nome fantasia ou CNPJ já está cadastrada.",
+                    "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
         cj.setNome(nomeFantasia);
@@ -99,7 +104,8 @@ public class GerenciarCliente {
                 cj.setDataDeCadastro(dataDeCadastro);
                 Datavalida = true;
             } catch (ParseException e) {
-                JOptionPane.showMessageDialog(null, "Formato de data inválido. Use o formato (Dia/Mês/Ano).", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Formato de data inválido. Use o formato (Dia/Mês/Ano).", "Erro",
+                        JOptionPane.ERROR_MESSAGE);
                 Datavalida = false;
             }
         } while (!Datavalida);
@@ -114,7 +120,8 @@ public class GerenciarCliente {
         cj.setEndereco(enderecoj);
         listaClientes.add(cj);
 
-        JOptionPane.showMessageDialog(null, cj.toString() + "\n\nCliente Pessoa Jurídica cadastrado com sucesso.", "Cadastro Concluído", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, cj.toString() + "\n\nCliente Pessoa Jurídica cadastrado com sucesso.",
+                "Cadastro Concluído", JOptionPane.INFORMATION_MESSAGE);
 
         salvarClienteEmArquivo(cj, "Pessoa Jurídica");
     }
@@ -122,22 +129,24 @@ public class GerenciarCliente {
     // Método para verificar se um cliente já está cadastrado por nome ou CPF
     private boolean clienteFisicaJaCadastrado(String nome, String cpf) {
         for (Cliente cliente : listaClientes) {
-            if(cliente instanceof PessoaFisica) {
+            if (cliente instanceof PessoaFisica) {
                 PessoaFisica pessoaFisica = (PessoaFisica) cliente;
                 if (cliente.getNome().toUpperCase().equals(nome) || pessoaFisica.getCpf().equals(cpf)) {
-                return true;
+                    return true;
                 }
             }
         }
         return false;
     }
 
-    // Método para verificar se uma empresa já está cadastrada por nome fantasia ou CNPJ
+    // Método para verificar se uma empresa já está cadastrada por nome fantasia ou
+    // CNPJ
     private boolean clienteJuridicoJaCadastrado(String nomeFantasia, String cnpj) {
         for (Cliente cliente : listaClientes) {
             if (cliente instanceof PessoaJuridica) {
                 PessoaJuridica pessoaJuridica = (PessoaJuridica) cliente;
-                if (pessoaJuridica.getNome().toUpperCase().equals(nomeFantasia) || pessoaJuridica.getCnpj().equals(cnpj)) {
+                if (pessoaJuridica.getNome().toUpperCase().equals(nomeFantasia)
+                        || pessoaJuridica.getCnpj().equals(cnpj)) {
                     return true;
                 }
             }
@@ -172,10 +181,12 @@ public class GerenciarCliente {
                 // Adiciona uma linha em branco para separar os dados dos clientes
                 writer.write("\n");
 
-                JOptionPane.showMessageDialog(null, "Cliente salvo no arquivo 'clientes.txt' com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Cliente salvo no arquivo 'clientes.txt' com sucesso.", "Sucesso",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar o cliente no arquivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao salvar o cliente no arquivo: " + e.getMessage(), "Erro",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -194,7 +205,8 @@ public class GerenciarCliente {
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivoOriginal, false))) {
                 for (Cliente cliente : listaClientes) {
-                    // Escreva as informações do cliente no arquivo, da mesma maneira que no método salvarClienteEmArquivo
+                    // Escreva as informações do cliente no arquivo, da mesma maneira que no método
+                    // salvarClienteEmArquivo
                     if (cliente instanceof PessoaFisica) {
                         String dadosCliente = ((PessoaFisica) cliente).toString();
                         writer.write(dadosCliente);
@@ -206,24 +218,29 @@ public class GerenciarCliente {
                     }
                     writer.write("\n");
                 }
-                JOptionPane.showMessageDialog(null, "Arquivo 'clientes.txt' atualizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Arquivo 'clientes.txt' atualizado com sucesso!", "Sucesso",
+                        JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Erro ao atualizar o arquivo 'clientes.txt': " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao atualizar o arquivo 'clientes.txt': " + e.getMessage(),
+                        "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao criar o arquivo 'clientes.txt': " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao criar o arquivo 'clientes.txt': " + e.getMessage(), "Erro",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void deletarpeloCPFouCnpj() {
         ImageIcon icon = new ImageIcon("icons\\warning.png");
         if (listaClientes.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Nenhum cliente cadastrado para deletar.", "Aviso", JOptionPane.INFORMATION_MESSAGE, icon);
+            JOptionPane.showMessageDialog(null, "Nenhum cliente cadastrado para deletar.", "Aviso",
+                    JOptionPane.INFORMATION_MESSAGE, icon);
             return;
         }
 
         Object[] tiposClientes = { "Pessoa Física", "Pessoa Jurídica" };
-        Object clienteSelecionado = JOptionPane.showInputDialog(null, "Escolha um tipo de cliente que deseja deletar:", "Cliente", JOptionPane.INFORMATION_MESSAGE, null, tiposClientes, tiposClientes[0]);
+        Object clienteSelecionado = JOptionPane.showInputDialog(null, "Escolha um tipo de cliente que deseja deletar:",
+                "Cliente", JOptionPane.INFORMATION_MESSAGE, null, tiposClientes, tiposClientes[0]);
 
         if (clienteSelecionado != null) {
             if (clienteSelecionado.equals("Pessoa Física")) {
@@ -238,7 +255,6 @@ public class GerenciarCliente {
         }
     }
 
-
     public void deletarClientePeloCPF() {
         // Carregando os CPFs dos clientes do arquivo
         List<String> cpfsClientes = new ArrayList<>();
@@ -250,7 +266,8 @@ public class GerenciarCliente {
         }
 
         // Exibindo os CPFs dos clientes em um JOptionPane
-        Object cpfSelecionado = JOptionPane.showInputDialog(null, "Escolha o CPF para deletar (Pessoa Física)", "Deletar Cliente", JOptionPane.QUESTION_MESSAGE, null, cpfsClientes.toArray(), cpfsClientes.get(0));
+        Object cpfSelecionado = JOptionPane.showInputDialog(null, "Escolha o CPF para deletar (Pessoa Física)",
+                "Deletar Cliente", JOptionPane.QUESTION_MESSAGE, null, cpfsClientes.toArray(), cpfsClientes.get(0));
 
         if (cpfSelecionado != null) {
             // O usuário selecionou um CPF, agora podemos prosseguir com a exclusão
@@ -266,11 +283,15 @@ public class GerenciarCliente {
                 }
             }
             listaClientes.removeAll(clientesParaRemover);
-            atualizarArquivoClientes(); //Atualizar o arquivo após a remoção dos clientes
+            atualizarArquivoClientes(); // Atualizar o arquivo após a remoção dos clientes
             if (clientesParaRemover.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Nenhum cliente com o CPF '" + cpfClienteSelecionado + "' foi encontrado (Pessoa Física).", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,
+                        "Nenhum cliente com o CPF '" + cpfClienteSelecionado + "' foi encontrado (Pessoa Física).",
+                        "Erro", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Cliente(s) com o CPF '" + cpfClienteSelecionado + "' removido(s) com sucesso (Pessoa Física).", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,
+                        "Cliente(s) com o CPF '" + cpfClienteSelecionado + "' removido(s) com sucesso (Pessoa Física).",
+                        "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Seleção cancelada");
@@ -288,7 +309,8 @@ public class GerenciarCliente {
         }
 
         // Exibindo os CNPJs dos clientes em um JOptionPane
-        Object cnpjSelecionado = JOptionPane.showInputDialog(null, "Escolha o CNPJ para deletar (Pessoa Jurídica)", "Deletar Cliente", JOptionPane.QUESTION_MESSAGE, null, cnpjsClientes.toArray(), cnpjsClientes.get(0));
+        Object cnpjSelecionado = JOptionPane.showInputDialog(null, "Escolha o CNPJ para deletar (Pessoa Jurídica)",
+                "Deletar Cliente", JOptionPane.QUESTION_MESSAGE, null, cnpjsClientes.toArray(), cnpjsClientes.get(0));
 
         if (cnpjSelecionado != null) {
             // O usuário selecionou um CNPJ, agora podemos prosseguir com a exclusão
@@ -306,21 +328,25 @@ public class GerenciarCliente {
             listaClientes.removeAll(clientesParaRemover);
             atualizarArquivoClientes(); // Atualiza o arquivo após a remoção dos clientes
             if (clientesParaRemover.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Nenhum cliente com o CNPJ '" + cnpjClienteSelecionado + "' foi encontrado (Pessoa Jurídica).", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,
+                        "Nenhum cliente com o CNPJ '" + cnpjClienteSelecionado + "' foi encontrado (Pessoa Jurídica).",
+                        "Erro", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Cliente(s) com o CNPJ '" + cnpjClienteSelecionado + "' removido(s) com sucesso (Pessoa Jurídica).", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,
+                        "Cliente(s) com o CNPJ '" + cnpjClienteSelecionado
+                                + "' removido(s) com sucesso (Pessoa Jurídica).",
+                        "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Seleção cancelada");
         }
     }
 
-
-
     public void deletarClientePeloNome() {
-         ImageIcon icon = new ImageIcon("icons\\warning.png");
+        ImageIcon icon = new ImageIcon("icons\\warning.png");
         if (listaClientes.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Nenhum cliente cadastrado para deletar.", "Aviso", JOptionPane.INFORMATION_MESSAGE, icon);
+            JOptionPane.showMessageDialog(null, "Nenhum cliente cadastrado para deletar.", "Aviso",
+                    JOptionPane.INFORMATION_MESSAGE, icon);
             return;
         }
         // Carregando os nomes dos clientes do arquivo
@@ -331,7 +357,8 @@ public class GerenciarCliente {
         }
 
         // Exibindo os nomes dos clientes em um JOptionPane
-        Object nomeSelecionado = JOptionPane.showInputDialog(null, "Escolha o cliente para deletar", "Deletar Cliente", JOptionPane.QUESTION_MESSAGE, null, nomesClientes.toArray(), nomesClientes.get(0));
+        Object nomeSelecionado = JOptionPane.showInputDialog(null, "Escolha o cliente para deletar", "Deletar Cliente",
+                JOptionPane.QUESTION_MESSAGE, null, nomesClientes.toArray(), nomesClientes.get(0));
 
         if (nomeSelecionado != null) {
             // O usuário selecionou um nome, agora podemos prosseguir com a exclusão
@@ -346,9 +373,13 @@ public class GerenciarCliente {
             listaClientes.removeAll(clientesParaRemover);
             atualizarArquivoClientes(); // Mova a chamada para atualizar o arquivo após a remoção dos clientes
             if (clientesParaRemover.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Nenhum cliente com o nome '" + nomeClienteSelecionado + "' foi encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,
+                        "Nenhum cliente com o nome '" + nomeClienteSelecionado + "' foi encontrado.", "Erro",
+                        JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Cliente(s) com o nome '" + nomeClienteSelecionado + "' removido(s) com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,
+                        "Cliente(s) com o nome '" + nomeClienteSelecionado + "' removido(s) com sucesso.", "Sucesso",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Seleção cancelada");
@@ -363,6 +394,7 @@ public class GerenciarCliente {
     public void carregarClientesDoArquivo() {
         String pastaBaseDados = "baseDados";
         File arquivo = new File(pastaBaseDados, "clientes.txt");
+        System.out.println(arquivo.getAbsolutePath());
 
         if (arquivo.exists()) {
             try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
@@ -414,7 +446,8 @@ public class GerenciarCliente {
                             } else if (linha.startsWith("Razão Social: ")) {
                                 pessoaJuridica.setRazaoSocial(linha.replace("Razão Social: ", ""));
                             } else if (linha.startsWith("Prazo Máx. (em dias) para pagamento: ")) {
-                                pessoaJuridica.setPrazoMax(Integer.parseInt(linha.replace("Prazo Máx. (em dias) para pagamento: ", "")));
+                                pessoaJuridica.setPrazoMax(
+                                        Integer.parseInt(linha.replace("Prazo Máx. (em dias) para pagamento: ", "")));
                             } else if (linha.startsWith("Data de cadastro: ")) {
                                 String dataDeCadastroStr = linha.replace("Data de cadastro: ", "");
                                 Date dataDeCadastro = null;
@@ -442,7 +475,8 @@ public class GerenciarCliente {
                     }
                 }
             } catch (IOException | ParseException e) {
-                JOptionPane.showMessageDialog(null, "Erro ao carregar clientes do arquivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao carregar clientes do arquivo: " + e.getMessage(), "Erro",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -487,13 +521,15 @@ public class GerenciarCliente {
         JOptionPane.showMessageDialog(null, listaClientesString, "Lista de Clientes", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    // (a) Relação de todos os Clientes que possuem o nome iniciado por uma determinada sequência de caracteres;
+    // (a) Relação de todos os Clientes que possuem o nome iniciado por uma
+    // determinada sequência de caracteres;
     public List<Cliente> buscarClientesPorNome(String sequencia) {
         List<Cliente> clientesEncontrados = new ArrayList<>();
         // Certifique-se de que a lista de clientes não está vazia
         if (listaClientes != null && !listaClientes.isEmpty()) {
             for (Cliente cliente : listaClientes) {
-                // Verifique se o nome do cliente inicia com a sequência fornecida (ignorando maiúsculas/minúsculas)
+                // Verifique se o nome do cliente inicia com a sequência fornecida (ignorando
+                // maiúsculas/minúsculas)
                 if (cliente.getNome().toLowerCase().startsWith(sequencia.toLowerCase())) {
                     clientesEncontrados.add(cliente);
                 }

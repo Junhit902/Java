@@ -7,10 +7,11 @@ public class PessoaJuridica extends Cliente {
     private String razaoSocial;
     private int prazoMax;
 
-    public PessoaJuridica(){
+    public PessoaJuridica() {
     }
 
-    public PessoaJuridica (String nome, Endereco endereco, Date dataDeCadastro, String cnpj, String razaoSocial, int prazoMax) {
+    public PessoaJuridica(String nome, Endereco endereco, Date dataDeCadastro, String cnpj, String razaoSocial,
+            int prazoMax) {
         super(nome, endereco, dataDeCadastro);
         this.cnpj = cnpj;
         this.razaoSocial = razaoSocial;
@@ -44,11 +45,12 @@ public class PessoaJuridica extends Cliente {
     @Override
     public String toString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String dataCadastroStr = (super.getDataDeCadastro() != null) ? dateFormat.format(super.getDataDeCadastro()) : "N/A";
+        String dataCadastroStr = (super.getDataDeCadastro() != null) ? dateFormat.format(super.getDataDeCadastro())
+                : "N/A";
 
-        return "==== PESSOA JURÍDICA ====" + "\nNome fantasia: " + super.getNome() + "\nCNPJ: " + cnpj + "\nRazão Social: " + razaoSocial + "\nPrazo Máx. (em dias) para pagamento: " + prazoMax
-        + "\nData de cadastro: " + dataCadastroStr + "\n==== ENDEREÇO ====\n" + super.getEndereco().toString();
+        return "==== PESSOA JURÍDICA ====" + "\nNome fantasia: " + super.getNome() + "\nCNPJ: " + cnpj
+                + "\nRazão Social: " + razaoSocial + "\nPrazo Máx. (em dias) para pagamento: " + prazoMax
+                + "\nData de cadastro: " + dataCadastroStr + "\n==== ENDEREÇO ====\n" + super.getEndereco().toString();
     }
-
 
 }

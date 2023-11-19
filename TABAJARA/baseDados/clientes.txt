@@ -12,3 +12,17 @@ CEP: 18076-210
 Cidade: Sorocaba
 Estado: SP
 
+
+==== PESSOA FÍSICA ====
+Nome completo: THIAGAO
+CPF: 127.42.2124
+Máx. de parcelas: 12
+Data de cadastro: 01/01/2002
+==== ENDEREÇO ====
+Rua: Rua Logradouro
+Número: 124
+Bairro: jorge
+CEP: 124.0.0.1
+Cidade: voto
+Estado: sp
+

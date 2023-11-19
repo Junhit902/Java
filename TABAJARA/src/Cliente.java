@@ -5,12 +5,12 @@ public class Cliente {
     private Endereco endereco;
     private Date dataDeCadastro;
 
-    //Construtor Vazio
-    public Cliente(){
+    // Construtor Vazio
+    public Cliente() {
         this.endereco = new Endereco();
     }
 
-    public Cliente(String nome, Endereco endereco, Date dataDeCadastro){
+    public Cliente(String nome, Endereco endereco, Date dataDeCadastro) {
         this.nome = nome;
         this.endereco = endereco;
         this.dataDeCadastro = dataDeCadastro;
@@ -50,6 +50,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "==== CLIENTE ===="+ "\nNome: " + nome + "\n==== ENDEREÇO ====" + endereco.toString() + "\nData De Cadastro: " + dataDeCadastro;
+        return "==== CLIENTE ====" + "\nNome: " + nome + "\n==== ENDEREÇO ====" + endereco.toString()
+                + "\nData De Cadastro: " + dataDeCadastro;
     }
 }

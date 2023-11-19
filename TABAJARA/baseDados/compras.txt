@@ -7,7 +7,7 @@ Cliente (CPF): 235.276.358-40
 Valor Total: R$59.8
 ---- Itens Comprados ----
 Nome do produto: Barra de chocolate
-Preço unitário: R$5.98
+Preço unitário: R$5.980000019073486
 Quantidade: 10
 Total Pago: R$59.8
 Falta Pagar: R$0.0

@@ -10,7 +10,8 @@ public class Compra {
     private float totalPago;
     private float faltaPagar;
 
-    public Compra(int identificador, Date dataCompra, float valorTotal, List<ItemCompra> itensCompra, PessoaFisica clienteFisico, PessoaJuridica clienteJuridico, float totalPago, float faltaPagar) {
+    public Compra(int identificador, Date dataCompra, float valorTotal, List<ItemCompra> itensCompra,
+            PessoaFisica clienteFisico, PessoaJuridica clienteJuridico, float totalPago, float faltaPagar) {
         this.identificador = identificador;
         this.dataCompra = dataCompra;
         this.valorTotal = valorTotal;
@@ -95,18 +96,18 @@ public class Compra {
 
     @Override
     public String toString() {
-    String resultado = "Identificador: " + identificador + "\n" +
-                    "Data da Compra: " + dataCompra + "\n" +
-                    "Valor Total: R$" + valorTotal + "\n" +
-                    "---- Itens Comprados ----\n";
+        String resultado = "Identificador: " + identificador + "\n" +
+                "Data da Compra: " + dataCompra + "\n" +
+                "Valor Total: R$" + valorTotal + "\n" +
+                "---- Itens Comprados ----\n";
 
-    for (ItemCompra item : itensCompra) {
-        resultado += "Nome do produto: " + item.getProduto().getNomeProduto() + "\n" +
-                  "Preço unitário: R$" + item.getProduto().getValorUnitario() + "\n" +
-                  "Quantidade: " + item.getQuantidade() + "\n";
-    }
+        for (ItemCompra item : itensCompra) {
+            resultado += "Nome do produto: " + item.getProduto().getNomeProduto() + "\n" +
+                    "Preço unitário: R$" + item.getProduto().getValorUnitario() + "\n" +
+                    "Quantidade: " + item.getQuantidade() + "\n";
+        }
 
-    return resultado;
+        return resultado;
     }
 
 }
