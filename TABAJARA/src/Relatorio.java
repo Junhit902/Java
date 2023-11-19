@@ -99,28 +99,52 @@ public class Relatorio {
                                     break;
                                 case 6:
                                 JOptionPane.showMessageDialog(null, "Busca de uma compra pelo número foi selecionada");
-                                List<Compra> listaComprasid = gerenciarCompra.getListaCompras();
-                                compra.exibirListaComprasSimplificadaComEscolha(listaComprasid);
+                                String compraidStr = JOptionPane.showInputDialog(null, "Digite o número do identificador da compra:");
+                                try {
+                                    int compraid = Integer.parseInt(compraidStr);
+                                    Compra compraEncontrada = compra.buscarCompraPeloNumero(compraid, gerenciarCompra.getListaCompras());
+                                    if (compraEncontrada != null) {
+                                        JOptionPane.showMessageDialog(null, "Compra Encontrada:\n" + compraEncontrada);
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Compra não encontrada.");
+                                    }
+                                } catch (NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(null, "Número inválido. Por favor, insira um número inteiro.", "Erro", JOptionPane.ERROR_MESSAGE);
+                                }
                                     break;
                                 case 7:
                                 JOptionPane.showMessageDialog(null,"Relação de todas as compras que não foram pagas ainda foi selecionada");
                                 compra.exibirComprasNaoPagas();
                                     break;
                                 case 8:
-                                JOptionPane.showMessageDialog(null,"Relação das 10 últimas compras pagas");
-                                compra.exibirUltimas10ComprasPagas();
+                                JOptionPane.showMessageDialog(null, "Relação das 10 últimas compras pagas foi selecionada");
+                                List<Compra> ultimasComprasPagas = gerenciarCompra.obterUltimas10ComprasPagas();
+                                if (!ultimasComprasPagas.isEmpty()) {
+                                    compra.exibirListaComprasSimplificada(ultimasComprasPagas);
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Não há 10 compras pagas para mostrar.", "Informação", JOptionPane.INFORMATION_MESSAGE);
+                                }
                                     break;
                                 case 9:
-                                JOptionPane.showMessageDialog(null,"Apresentação das informações da compra mais cara foi selecionada");
-                                compra.exibirCompraMaisCara();
+                                JOptionPane.showMessageDialog(null, "Apresentação das informações da compra mais cara foi selecionada");
+                                Compra compraMaisCara = gerenciarCompra.encontrarCompraMaisCara();
+                                if (compraMaisCara != null) {
+                                    JOptionPane.showMessageDialog(null, "Detalhes da Compra Mais Cara:\n" + compraMaisCara);
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Não há compras para mostrar.", "Informação", JOptionPane.INFORMATION_MESSAGE);
+                                }
                                     break;
                                 case 10:
-                                JOptionPane.showMessageDialog(null,"Apresentação das informações da compra mais barata foi selecionada");
-                                compra.exibirCompraMaisBarata();
+                                JOptionPane.showMessageDialog(null, "Apresentação das informações da compra mais barata foi selecionada");
+                                Compra compraMaisBarata = gerenciarCompra.encontrarCompraMaisBarata(gerenciarCompra.getListaCompras());
+                                if (compraMaisBarata != null) {
+                                    JOptionPane.showMessageDialog(null, "Detalhes da Compra Mais Barata:\n" + compraMaisBarata);
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Não há compras para mostrar.", "Informação", JOptionPane.INFORMATION_MESSAGE);
+                                }
                                     break;
                                 case 11:
                                 JOptionPane.showMessageDialog(null, "Relação do valor total de compras feitas em cada mês nos últimos 12 meses foi selecionada");
-                                compra.exibirValorTotalComprasPorMes();
                                     break;
                                 default:
                                     JOptionPane.showMessageDialog(null, "Opção inválida!", "Opção inserida: " + opcaoStr, JOptionPane.ERROR_MESSAGE);

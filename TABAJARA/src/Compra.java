@@ -92,4 +92,21 @@ public class Compra {
     public void setFaltaPagar(float faltaPagar) {
         this.faltaPagar = faltaPagar;
     }
+
+    @Override
+    public String toString() {
+    String resultado = "Identificador: " + identificador + "\n" +
+                    "Data da Compra: " + dataCompra + "\n" +
+                    "Valor Total: R$" + valorTotal + "\n" +
+                    "---- Itens Comprados ----\n";
+
+    for (ItemCompra item : itensCompra) {
+        resultado += "Nome do produto: " + item.getProduto().getNomeProduto() + "\n" +
+                  "Preço unitário: R$" + item.getProduto().getValorUnitario() + "\n" +
+                  "Quantidade: " + item.getQuantidade() + "\n";
+    }
+
+    return resultado;
+    }
+
 }
