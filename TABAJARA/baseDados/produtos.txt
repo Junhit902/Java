@@ -1,0 +1,14 @@
+
+
+Código do produto: 1
+NOME DO PRODUTO: Barra de chocolate
+Descrição: 70% amargo
+Valor unitário: R$5.98
+Data de validade: 21/11/2023
+
+
+Código do produto: 2
+NOME DO PRODUTO: Cereal
+Descrição: Nescau
+Valor unitário: R$11.98
+Data de validade: 30/11/2023

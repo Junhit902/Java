@@ -1,0 +1,14 @@
+
+
+==== COMPRA ====
+Identificador: 1
+Data da Compra: 19/11/2023
+Cliente (CPF): 235.276.358-40
+Valor Total: R$59.8
+---- Itens Comprados ----
+Nome do produto: Barra de chocolate
+Preço unitário: R$5.98
+Quantidade: 10
+Total Pago: R$59.8
+Falta Pagar: R$0.0
+

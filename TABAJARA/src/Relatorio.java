@@ -144,6 +144,8 @@ public class Relatorio {
                                     break;
                                 case 11:
                                 JOptionPane.showMessageDialog(null, "Relação do valor total de compras feitas em cada mês nos últimos 12 meses foi selecionada");
+                                String relacao = compra.obterValorTotalComprasPorMes().toString();
+                                JOptionPane.showMessageDialog(null, "Valor total da compra por mês\n" +relacao);
                                     break;
                                 default:
                                     JOptionPane.showMessageDialog(null, "Opção inválida!", "Opção inserida: " + opcaoStr, JOptionPane.ERROR_MESSAGE);

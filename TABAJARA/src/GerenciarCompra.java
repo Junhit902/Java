@@ -666,6 +666,53 @@ public class GerenciarCompra {
         return compraMaisBarata;
     }
 
-    // (k) Relação do valor total de compras feitas em cada mês nos últimos 12 meses.
+    // Método auxiliar para calcular o valor total das compras em um determinado período
+    private float calcularValorTotalComprasNoPeriodo(Date inicio, Date fim) {
+        float valorTotal = 0;
 
+        for (Compra compra : listaCompras) {
+            Date dataCompra = compra.getDataCompra();
+
+            // Verifica se a compra está dentro do período especificado
+            if (dataCompra.after(inicio) && dataCompra.before(fim)) {
+                valorTotal += compra.getValorTotal();
+            }
+        }
+
+        return valorTotal;
+    }
+
+    // (k) Relação do valor total de compras feitas em cada mês nos últimos 12 meses.
+    public Map<String, Float> obterValorTotalComprasPorMes() {
+        Map<String, Float> valorTotalPorMes = new HashMap<>();
+
+        // Obtém a data atual
+        Calendar hoje = Calendar.getInstance();
+
+        // Itera pelos últimos 12 meses
+        for (int i = 0; i < 12; i++) {
+            // Define o primeiro dia do mês atual
+            hoje.set(Calendar.DAY_OF_MONTH, 1);
+
+            // Retrocede para o mês anterior
+            hoje.add(Calendar.MONTH, -i);
+
+            // Obtém o primeiro dia e o último dia do mês
+            Date primeiroDiaDoMes = hoje.getTime();
+            hoje.add(Calendar.MONTH, 1);
+            hoje.add(Calendar.DAY_OF_MONTH, -1);
+            Date ultimoDiaDoMes = hoje.getTime();
+
+            // Calcula o valor total das compras para o mês atual
+            float valorTotal = calcularValorTotalComprasNoPeriodo(primeiroDiaDoMes, ultimoDiaDoMes);
+
+            // Formata o nome do mês
+            String nomeMes = new SimpleDateFormat("MMMM yyyy").format(primeiroDiaDoMes);
+
+            // Adiciona o valor total ao mapa
+            valorTotalPorMes.put(nomeMes, valorTotal);
+        }
+
+        return valorTotalPorMes;
+    }
 }
