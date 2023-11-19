@@ -85,7 +85,7 @@ public class App {
                     }
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Entrada inválida. Por favor, insira um número inteiro.", "Opção inserida: " + opcaoStr, JOptionPane.ERROR_MESSAGE);
-                    opcao = 0; // Definir opcao como 0 em caso de entrada inválida
+                    opcao = 0; // Definindo a opcao como 0 em caso de entrada inválida
                 }
             }
         } while (opcao != 8);

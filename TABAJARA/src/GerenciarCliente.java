@@ -37,7 +37,7 @@ public class GerenciarCliente {
 
         String nome = JOptionPane.showInputDialog("Digite o seu nome completo:").toUpperCase();
         String cpf = JOptionPane.showInputDialog("Digite o seu CPF (123.456.789-01):");
-        // Verifique se o nome ou CPF já existem na lista de clientes
+        // Verifica se o nome ou CPF já existem na lista de clientes
         if (clienteFisicaJaCadastrado(nome, cpf)) {
             JOptionPane.showMessageDialog(null, "Um cliente com o mesmo nome ou CPF já está cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
@@ -169,7 +169,7 @@ public class GerenciarCliente {
                     writer.write("\n");
                 }
 
-                // Adicione uma linha em branco para separar os dados dos clientes
+                // Adiciona uma linha em branco para separar os dados dos clientes
                 writer.write("\n");
 
                 JOptionPane.showMessageDialog(null, "Cliente salvo no arquivo 'clientes.txt' com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -266,7 +266,7 @@ public class GerenciarCliente {
                 }
             }
             listaClientes.removeAll(clientesParaRemover);
-            atualizarArquivoClientes(); // Mova a chamada para atualizar o arquivo após a remoção dos clientes
+            atualizarArquivoClientes(); //Atualizar o arquivo após a remoção dos clientes
             if (clientesParaRemover.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Nenhum cliente com o CPF '" + cpfClienteSelecionado + "' foi encontrado (Pessoa Física).", "Erro", JOptionPane.ERROR_MESSAGE);
             } else {
@@ -304,7 +304,7 @@ public class GerenciarCliente {
                 }
             }
             listaClientes.removeAll(clientesParaRemover);
-            atualizarArquivoClientes(); // Mova a chamada para atualizar o arquivo após a remoção dos clientes
+            atualizarArquivoClientes(); // Atualiza o arquivo após a remoção dos clientes
             if (clientesParaRemover.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Nenhum cliente com o CNPJ '" + cnpjClienteSelecionado + "' foi encontrado (Pessoa Jurídica).", "Erro", JOptionPane.ERROR_MESSAGE);
             } else {
@@ -330,7 +330,7 @@ public class GerenciarCliente {
             nomesClientes.add(cliente.getNome());
         }
 
-        // Exiba os nomes dos clientes em um JOptionPane
+        // Exibindo os nomes dos clientes em um JOptionPane
         Object nomeSelecionado = JOptionPane.showInputDialog(null, "Escolha o cliente para deletar", "Deletar Cliente", JOptionPane.QUESTION_MESSAGE, null, nomesClientes.toArray(), nomesClientes.get(0));
 
         if (nomeSelecionado != null) {

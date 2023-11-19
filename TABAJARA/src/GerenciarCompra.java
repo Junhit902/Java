@@ -62,10 +62,10 @@ public class GerenciarCompra {
         compra.setCnpj(cliente instanceof PessoaJuridica ? (PessoaJuridica) cliente : null);
         compra.setValorTotal(valorTotal);
 
-        // Exibir detalhes da compra e obter valor pago
+        // Exibindo detalhes da compra e obter valor pago
         float valorPago = exibirDetalhesCompraEObterValorPago(compra);
 
-        // Definir valores pagos e restantes
+        // Definindo valores pagos e restantes
         compra.setTotalPago(valorPago);
         float faltaPagar = compra.getValorTotal() - valorPago;
         compra.setFaltaPagar(faltaPagar);
@@ -76,7 +76,7 @@ public class GerenciarCompra {
         // Salvando a compra no arquivo compras.txt
         salvarCompraEmArquivo(compra);
 
-        // Exibir recibo
+        // Exibe recibo
         exibirRecibo(compra, valorPago, faltaPagar);
 
         JOptionPane.showMessageDialog(null, "Compra realizada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -96,22 +96,22 @@ public class GerenciarCompra {
                     .append(" - R$ ").append(String.format("%.2f", item.getProduto().getValorUnitario())).append("\n");
         }
 
-        // Obter valor pago
+        // Obtem o valor pago
         try {
             String valorPagoStr = JOptionPane.showInputDialog(detalhesCompra + "\nDigite o valor que deseja pagar (obs: insira com ponto ao invés da vírgula):");
 
-            // Verificar se o usuário cancelou a entrada
+            // Verifica se o usuário cancelou a entrada
             if (valorPagoStr == null) {
                 return 0;
             }
 
             float valorPago = Float.parseFloat(valorPagoStr);
 
-            // Verificar se o valor pago é válido
+            // Verifica se o valor pago é válido
             while (valorPago < 0 || valorPago > valorTotal) {
                 valorPagoStr = JOptionPane.showInputDialog("Valor excedeu o valor total da compra. Digite novamente o valor que deseja pagar:");
 
-                // Verificar se o usuário cancelou a entrada
+                // Verifica se o usuário cancelou a entrada
                 if (valorPagoStr == null) {
                     return 0;
                 }
@@ -144,9 +144,6 @@ public class GerenciarCompra {
 
         JOptionPane.showMessageDialog(null, recibo.toString(), "Recibo", JOptionPane.INFORMATION_MESSAGE);
     }
-
-
-    // Métodos auxiliares...
 
     private Cliente obterClienteParaCompra(List<Cliente> listaClientes) {
         // Listando todos os clientes com um índice
@@ -245,7 +242,7 @@ public class GerenciarCompra {
     }
 
     private int gerarIdentificadorCompra() {
-        // Simples exemplo de geração de identificador. Pode ser ajustado conforme necessário.
+        //Gera identificador, incrementando 1 em 1.
         return listaCompras.size() + 1;
     }
 
@@ -278,7 +275,7 @@ public class GerenciarCompra {
                 writer.write("Valor Total: R$" + compra.getValorTotal() + "\n");
                 writer.write("---- Itens Comprados ----\n");
 
-                // Ajuste para exibir detalhes dos itens comprados
+                // Ajustando para exibir detalhes dos itens comprados
                 for (ItemCompra item : compra.getItensCompra()) {
                     writer.write("Nome do produto: " + item.getProduto().getNomeProduto() +"\n");
                     writer.write("Preço unitário: R$" +item.getProduto().getValorUnitario() + "\n");
@@ -310,7 +307,7 @@ public class GerenciarCompra {
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivoOriginal, false))) {
                 for (Compra compra : listaCompras) {
-                    // Escreva as informações da compra no arquivo, da mesma maneira que no método salvarCompraEmArquivo
+                    // Escrevendo as informações da compra no arquivo, da mesma maneira que no método salvarCompraEmArquivo
                     writer.write("\n\n==== COMPRA ====\n");
                     writer.write("Identificador: " + compra.getIdentificador() + "\n");
                     writer.write("Data da Compra: " + new SimpleDateFormat("dd/MM/yyyy").format(compra.getDataCompra()) + "\n");
@@ -366,7 +363,7 @@ public class GerenciarCompra {
                                 // Verifica se é um cliente Pessoa Física
                                 String cpf = linha.replace("Cliente (CPF): ", "").trim();
 
-                                // Encontrar o cliente com base no CPF
+                                // Encontra o cliente com base no CPF
                                 Cliente clientePF = gerenciarCliente.encontrarClientePorCPF(cpf);
                                 PessoaFisica pf = (PessoaFisica) clientePF;
                                 if (clientePF != null) {
@@ -380,7 +377,7 @@ public class GerenciarCompra {
                                 // Verifica se é um cliente Pessoa Jurídica
                                 String cnpj = linha.replace("Cliente (CNPJ): ", "").trim();
 
-                                // Encontrar o cliente com base no CNPJ
+                                // Encontra o cliente com base no CNPJ
                                 Cliente clientePJ = gerenciarCliente.encontrarClientePessoaJuridicaPorCNPJ(cnpj);
                                 PessoaJuridica pj = (PessoaJuridica) clientePJ;
 
@@ -421,10 +418,10 @@ public class GerenciarCompra {
     }
 
     public void atualizarSituacaoPagamento() {
-        // Obtendo o Identificador
+        // Obtem o Identificador
         String identificadorStr = JOptionPane.showInputDialog("Digite o Identificador da compra:");
 
-        // Verificando se o usuário cancelou a entrada
+        // Verifica se o usuário cancelou a entrada
         if (identificadorStr == null) {
             return;
         }
@@ -513,14 +510,14 @@ public class GerenciarCompra {
         try {
             String valorPagoStr = JOptionPane.showInputDialog("Digite o valor que deseja pagar (obs: insira com ponto ao invés da vírgula):");
 
-            // Verificar se o usuário cancelou a entrada
+            // Verifica se o usuário cancelou a entrada
             if (valorPagoStr == null) {
                 return -1;
             }
 
             float valorPago = Float.parseFloat(valorPagoStr);
 
-            // Verificar se o valor pago é válido
+            // Verifica se o valor pago é válido
             while (valorPago < 0 || valorPago > faltaPagar) {
                 valorPagoStr = JOptionPane.showInputDialog("Valor excedeu o valor total a pagar. Digite novamente o valor que deseja pagar:");
 
@@ -605,7 +602,7 @@ public class GerenciarCompra {
     public List<Compra> listarUltimas10ComprasPagas() {
         List<Compra> comprasPagas = new ArrayList<>();
         List<Compra> todasCompras = getListaCompras();
-        // Filtrar apenas as compras pagas
+        // Filtra apenas as compras pagas
         todasCompras.stream()
                 .filter(compra -> compra.getTotalPago() == compra.getValorTotal())
                 .sorted(Comparator.comparing(Compra::getDataCompra).reversed())
@@ -670,5 +667,5 @@ public class GerenciarCompra {
     }
 
     // (k) Relação do valor total de compras feitas em cada mês nos últimos 12 meses.
-    
+
 }

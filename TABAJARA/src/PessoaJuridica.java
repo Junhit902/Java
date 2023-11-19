@@ -1,6 +1,7 @@
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+//Pessoa Jurídica herda 'extends' os atributos e metodos da classe Cliente
 public class PessoaJuridica extends Cliente {
     private String cnpj;
     private String razaoSocial;

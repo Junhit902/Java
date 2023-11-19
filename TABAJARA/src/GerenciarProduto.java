@@ -69,7 +69,7 @@ public void salvarProdutosEmArquivo() {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo, false))) {
             for (Produto produto : listaProdutos) {
-                // Escreva as informações do produto no arquivo
+                // Escrevendo as informações do produto no arquivo
                 writer.write("\n\nCódigo do produto: " + produto.getCodigo());
                 writer.write("\nNOME DO PRODUTO: " + produto.getNomeProduto());
                 writer.write("\nDescrição: " + produto.getDescricao());
@@ -106,7 +106,7 @@ public void salvarProdutosEmArquivo() {
             try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
                 String linha;
                 while ((linha = reader.readLine()) != null) {
-                    // Verifique se a linha contém dados de um produto
+                    // Verifica se a linha contém dados de um produto
                     if (linha.startsWith("Código do produto: ")) {
                         int codigo = Integer.parseInt(linha.replace("Código do produto: ", ""));
                         String nomeProduto = reader.readLine().replace("NOME DO PRODUTO: ", "");

@@ -1,6 +1,7 @@
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
+//Pessoa Física herda 'extends' os atributos e metodos da classe Cliente
 public class PessoaFisica extends Cliente {
     private String cpf;
     private int maxParcelas;

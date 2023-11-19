@@ -41,11 +41,11 @@ public class Cliente {
     }
 
     public String getCpf() {
-        return null; // Implemente a lógica para retornar o CPF ou null
+        return null;
     }
 
     public String getCnpj() {
-        return null; // Implemente a lógica para retornar o CNPJ ou null
+        return null;
     }
 
     @Override
