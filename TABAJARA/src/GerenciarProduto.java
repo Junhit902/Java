@@ -55,7 +55,7 @@ public class GerenciarProduto {
 
 
 public void salvarProdutosEmArquivo() {
-    String pastaBaseDados = "C:\\GitHub\\Java\\TABAJARA\\baseDados";
+    String pastaBaseDados = "baseDados";
     File arquivo = new File(pastaBaseDados, "produtos.txt");
 
     try {
@@ -99,7 +99,7 @@ public void salvarProdutosEmArquivo() {
     }
 
     public void carregarProdutosDoArquivo() {
-        String pastaBaseDados = "C:\\GitHub\\Java\\TABAJARA\\baseDados";
+        String pastaBaseDados = "baseDados";
         File arquivo = new File(pastaBaseDados, "produtos.txt");
 
         if (arquivo.exists()) {
@@ -131,7 +131,7 @@ public void salvarProdutosEmArquivo() {
     }
 
     public void atualizarArquivoProdutos() {
-        String pastaBaseDados = "C:\\GitHub\\Java\\TABAJARA\\baseDados";
+        String pastaBaseDados = "baseDados";
         File arquivo = new File(pastaBaseDados, "produtos.txt");
 
         try {

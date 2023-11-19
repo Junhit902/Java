@@ -247,7 +247,7 @@ public class GerenciarCompra {
     }
 
     private void salvarCompraEmArquivo(Compra compra) {
-        String pastaBaseDados = "C:\\GitHub\\Java\\TABAJARA\\baseDados";
+        String pastaBaseDados = "baseDados";
         File arquivo = new File(pastaBaseDados, "compras.txt");
 
         try {
@@ -293,7 +293,7 @@ public class GerenciarCompra {
     }
 
     public void atualizarArquivoCompras() {
-        String pastaBaseDados = "C:\\GitHub\\Java\\TABAJARA\\baseDados";
+        String pastaBaseDados = "baseDados";
         File arquivoOriginal = new File(pastaBaseDados, "compras.txt");
 
         try {
@@ -342,7 +342,7 @@ public class GerenciarCompra {
     }
 
     public void carregarComprasDoArquivo() {
-        String pastaBaseDados = "C:\\GitHub\\Java\\TABAJARA\\baseDados";
+        String pastaBaseDados = "baseDados";
         File arquivo = new File(pastaBaseDados, "compras.txt");
 
         if (arquivo.exists()) {
