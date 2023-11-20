@@ -21,41 +21,33 @@ public class GerenciarCompra {
     }
 
     public void realizarCompra() {
-        // Obtendo a lista de produtos e clientes
         List<Produto> listaProdutos = gerenciarProduto.getListaProdutos();
         List<Cliente> listaClientes = gerenciarCliente.getListaClientes();
 
-        // Se não houver produtos ou clientes, não é possível realizar uma compra
         if (listaProdutos.isEmpty() || listaClientes.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Não há produtos ou clientes cadastrados para realizar a compra.",
                     "Aviso", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
-        // Obtendo o cliente para a compra
         Cliente cliente = obterClienteParaCompra(listaClientes);
         if (cliente == null) {
             JOptionPane.showMessageDialog(null, "Operação cancelada.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
-        // Obtendo a lista de itens para a compra
         List<ItemCompra> itensCompra = obterItensParaCompra(listaProdutos);
 
-        // Se não houver itens selecionados, cancela a compra
         if (itensCompra.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Operação cancelada. Nenhum item selecionado.", "Aviso",
                     JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
-        // Obtendo a data da compra
         Date dataCompra = obterDataCompra();
 
-        // Calculando o valor total da compra
         float valorTotal = calcularValorTotalCompra(itensCompra);
 
-        // Criando um objeto Compra
         Compra compra = new Compra();
         compra.setIdentificador(gerarIdentificadorCompra());
         compra.setDataCompra(dataCompra);
@@ -64,21 +56,16 @@ public class GerenciarCompra {
         compra.setCnpj(cliente instanceof PessoaJuridica ? (PessoaJuridica) cliente : null);
         compra.setValorTotal(valorTotal);
 
-        // Exibindo detalhes da compra e obter valor pago
         float valorPago = exibirDetalhesCompraEObterValorPago(compra);
 
-        // Definindo valores pagos e restantes
         compra.setTotalPago(valorPago);
         float faltaPagar = compra.getValorTotal() - valorPago;
         compra.setFaltaPagar(faltaPagar);
 
-        // Adicionando a compra à lista de compras
         listaCompras.add(compra);
 
-        // Salvando a compra no arquivo compras.txt
         salvarCompraEmArquivo(compra);
 
-        // Exibe recibo
         exibirRecibo(compra, valorPago, faltaPagar);
 
         JOptionPane.showMessageDialog(null, "Compra realizada com sucesso!", "Sucesso",
@@ -93,7 +80,6 @@ public class GerenciarCompra {
                 .append(compra.getCpf() != null ? compra.getCpf().getNome() : compra.getCnpj().getNome()).append("\n");
         detalhesCompra.append("Valor Total da Compra: R$ ").append(String.format("%.2f", valorTotal)).append("\n");
 
-        // Exibir itens comprados
         detalhesCompra.append("Itens Comprados:\n");
         for (ItemCompra item : compra.getItensCompra()) {
             detalhesCompra.append("  - ").append(item.getQuantidade()).append("x ")
@@ -101,24 +87,20 @@ public class GerenciarCompra {
                     .append(" - R$ ").append(String.format("%.2f", item.getProduto().getValorUnitario())).append("\n");
         }
 
-        // Obtem o valor pago
         try {
             String valorPagoStr = JOptionPane.showInputDialog(
                     detalhesCompra + "\nDigite o valor que deseja pagar (obs: insira com ponto ao invés da vírgula):");
 
-            // Verifica se o usuário cancelou a entrada
             if (valorPagoStr == null) {
                 return 0;
             }
 
             float valorPago = Float.parseFloat(valorPagoStr);
 
-            // Verifica se o valor pago é válido
             while (valorPago < 0 || valorPago > valorTotal) {
                 valorPagoStr = JOptionPane.showInputDialog(
                         "Valor excedeu o valor total da compra. Digite novamente o valor que deseja pagar:");
 
-                // Verifica se o usuário cancelou a entrada
                 if (valorPagoStr == null) {
                     return 0;
                 }
@@ -140,7 +122,6 @@ public class GerenciarCompra {
         recibo.append("Data da Compra: ").append(new SimpleDateFormat("dd/MM/yyyy").format(compra.getDataCompra()))
                 .append("\n");
 
-        // Exibindo CPF ou CNPJ do cliente
         if (compra.getCpf() != null) {
             recibo.append("Cliente (CPF): ").append(compra.getCpf().getNome()).append(" - ")
                     .append(((PessoaFisica) compra.getCpf()).getCpf()).append("\n");
@@ -157,7 +138,7 @@ public class GerenciarCompra {
     }
 
     private Cliente obterClienteParaCompra(List<Cliente> listaClientes) {
-        // Listando todos os clientes com um índice
+
         StringBuilder clientesString = new StringBuilder(
                 "Escolha um cliente, se identifique inserindo um número inteiro que se encontra ao lado do nome\n");
         for (int i = 0; i < listaClientes.size(); i++) {
@@ -190,7 +171,6 @@ public class GerenciarCompra {
     private List<ItemCompra> obterItensParaCompra(List<Produto> listaProdutos) {
         List<ItemCompra> itensCompra = new ArrayList<>();
 
-        // Listando todos os produtos com um índice
         StringBuilder produtosString = new StringBuilder(
                 "Escolha os produtos (insira o número inteiro do produto que queira comprar):\n");
         for (int i = 0; i < listaProdutos.size(); i++) {
@@ -202,7 +182,6 @@ public class GerenciarCompra {
         try {
             String escolhaProdutos = JOptionPane.showInputDialog(produtosString.toString());
 
-            // Verifica se o usuário cancelou a escolha
             if (escolhaProdutos == null) {
                 return Collections.emptyList();
             }
@@ -236,7 +215,6 @@ public class GerenciarCompra {
         try {
             String dataCompraStr = JOptionPane.showInputDialog("Digite a data da compra (Dia/Mês/Ano):");
 
-            // Verifica se o usuário cancelou a entrada
             if (dataCompraStr == null) {
                 return null;
             }
@@ -252,7 +230,7 @@ public class GerenciarCompra {
     private float calcularValorTotalCompra(List<ItemCompra> itensCompra) {
         float valorTotal = 0;
         for (ItemCompra item : itensCompra) {
-            // Verifica se o produto associado ao ItemCompra não é nulo
+
             if (item.getProduto() != null) {
                 valorTotal += item.getProduto().getValorUnitario() * item.getQuantidade();
             }
@@ -261,7 +239,7 @@ public class GerenciarCompra {
     }
 
     private int gerarIdentificadorCompra() {
-        // Gera identificador, incrementando 1 em 1.
+
         return listaCompras.size() + 1;
     }
 
@@ -279,13 +257,12 @@ public class GerenciarCompra {
             }
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo, false))) {
-                // Escrevendo as informações da compra no arquivo
+
                 writer.write("\n\n==== COMPRA ====\n");
                 writer.write("Identificador: " + compra.getIdentificador() + "\n");
                 writer.write(
                         "Data da Compra: " + new SimpleDateFormat("dd/MM/yyyy").format(compra.getDataCompra()) + "\n");
 
-                // Exibindo CPF ou CNPJ do cliente
                 if (compra.getCpf() != null) {
                     writer.write("Cliente (CPF): " + ((PessoaFisica) compra.getCpf()).getCpf() + "\n");
                 } else if (compra.getCnpj() != null) {
@@ -295,7 +272,6 @@ public class GerenciarCompra {
                 writer.write("Valor Total: R$" + compra.getValorTotal() + "\n");
                 writer.write("---- Itens Comprados ----\n");
 
-                // Ajustando para exibir detalhes dos itens comprados
                 for (ItemCompra item : compra.getItensCompra()) {
                     writer.write("Nome do produto: " + item.getProduto().getNomeProduto() + "\n");
                     writer.write("Preço unitário: R$" + item.getProduto().getValorUnitario() + "\n");
@@ -329,14 +305,12 @@ public class GerenciarCompra {
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivoOriginal, false))) {
                 for (Compra compra : listaCompras) {
-                    // Escrevendo as informações da compra no arquivo, da mesma maneira que no
-                    // método salvarCompraEmArquivo
+
                     writer.write("\n\n==== COMPRA ====\n");
                     writer.write("Identificador: " + compra.getIdentificador() + "\n");
                     writer.write("Data da Compra: " + new SimpleDateFormat("dd/MM/yyyy").format(compra.getDataCompra())
                             + "\n");
 
-                    // Exibindo CPF ou CNPJ do cliente
                     if (compra.getCpf() != null) {
                         writer.write("Cliente (CPF): " + ((PessoaFisica) compra.getCpf()).getCpf() + "\n");
                     } else if (compra.getCnpj() != null) {
@@ -387,33 +361,31 @@ public class GerenciarCompra {
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                                 compra.setDataCompra(dateFormat.parse(linha.replace("Data da Compra: ", "").trim()));
                             } else if (linha.startsWith("Cliente (CPF): ")) {
-                                // Verifica se é um cliente Pessoa Física
+
                                 String cpf = linha.replace("Cliente (CPF): ", "").trim();
 
-                                // Encontra o cliente com base no CPF
                                 Cliente clientePF = gerenciarCliente.encontrarClientePorCPF(cpf);
                                 PessoaFisica pf = (PessoaFisica) clientePF;
                                 if (clientePF != null) {
                                     compra.setCpf(pf);
                                 } else {
-                                    // Tratando o caso em que o cliente não é encontrado
+
                                     JOptionPane.showMessageDialog(null,
                                             "Cliente com CPF '" + cpf + "' não encontrado. Operação cancelada.", "Erro",
                                             JOptionPane.ERROR_MESSAGE);
                                     return;
                                 }
                             } else if (linha.startsWith("Cliente (CNPJ): ")) {
-                                // Verifica se é um cliente Pessoa Jurídica
+
                                 String cnpj = linha.replace("Cliente (CNPJ): ", "").trim();
 
-                                // Encontra o cliente com base no CNPJ
                                 Cliente clientePJ = gerenciarCliente.encontrarClientePessoaJuridicaPorCNPJ(cnpj);
                                 PessoaJuridica pj = (PessoaJuridica) clientePJ;
 
                                 if (clientePJ != null) {
                                     compra.setCnpj(pj);
                                 } else {
-                                    // Tratando o caso em que o cliente não é encontrado
+
                                     JOptionPane.showMessageDialog(null,
                                             "Cliente com CNPJ '" + cnpj + "' não encontrado. Operação cancelada.",
                                             "Erro", JOptionPane.ERROR_MESSAGE);
@@ -438,7 +410,6 @@ public class GerenciarCompra {
                             }
                         }
 
-                        // Adiciona a compra à lista
                         compra.setItensCompra(itensCompra);
                         listaCompras.add(compra);
                     }
@@ -451,10 +422,9 @@ public class GerenciarCompra {
     }
 
     public void atualizarSituacaoPagamento() {
-        // Obtem o Identificador
+
         String identificadorStr = JOptionPane.showInputDialog("Digite o Identificador da compra:");
 
-        // Verifica se o usuário cancelou a entrada
         if (identificadorStr == null) {
             return;
         }
@@ -462,10 +432,8 @@ public class GerenciarCompra {
         try {
             int identificador = Integer.parseInt(identificadorStr);
 
-            // Buscando a compra
             Compra compra = encontrarCompraPorIdentificador(identificador);
 
-            // Se a compra não foi encontrada, exibe mensagem e retorna
             if (compra == null) {
                 JOptionPane.showMessageDialog(null,
                         "Compra não encontrada. Verifique o Identificador e tente novamente.", "Erro",
@@ -473,28 +441,23 @@ public class GerenciarCompra {
                 return;
             }
 
-            // Exibindo detalhes da compra
             exibirDetalhesCompra(compra);
 
-            // Exibindo quanto falta pagar
             float faltaPagar = compra.getFaltaPagar();
             JOptionPane.showMessageDialog(null, "Falta Pagar: R$ " + String.format("%.2f", faltaPagar),
                     "Situação de Pagamento", JOptionPane.INFORMATION_MESSAGE);
 
-            // Solicitando valor para pagamento
             float valorPago = obterValorPago(faltaPagar);
             if (valorPago < 0) {
-                return; // Usuário cancelou a entrada
+                return;
             }
 
-            // Atualizando valores na compra
             float novoTotalPago = compra.getTotalPago() + valorPago;
             float novoFaltaPagar = faltaPagar - valorPago;
 
             compra.setTotalPago(novoTotalPago);
             compra.setFaltaPagar(novoFaltaPagar);
 
-            // Atualizando no arquivo
             atualizarArquivoCompras();
 
             JOptionPane.showMessageDialog(null, "Pagamento registrado com sucesso!", "Sucesso",
@@ -513,7 +476,6 @@ public class GerenciarCompra {
         detalhesCompra.append("Data da Compra: ")
                 .append(new SimpleDateFormat("dd/MM/yyyy").format(compra.getDataCompra())).append("\n");
 
-        // Exibindo CPF ou CNPJ do cliente
         if (compra.getCpf() != null) {
             detalhesCompra.append("Cliente (CPF): ").append(compra.getCpf().getNome()).append(" - ")
                     .append(((PessoaFisica) compra.getCpf()).getCpf()).append("\n");
@@ -525,7 +487,6 @@ public class GerenciarCompra {
         detalhesCompra.append("Valor Total da Compra: R$ ").append(String.format("%.2f", compra.getValorTotal()))
                 .append("\n");
 
-        // Exibindo detalhes dos itens comprados
         detalhesCompra.append("Itens Comprados:\n");
         for (ItemCompra item : compra.getItensCompra()) {
             detalhesCompra.append("  - ").append(item.getQuantidade()).append("x ")
@@ -546,7 +507,7 @@ public class GerenciarCompra {
                 return compra;
             }
         }
-        return null; // Retorna null se não encontrar a compra
+        return null;
     }
 
     private float obterValorPago(float faltaPagar) {
@@ -554,19 +515,16 @@ public class GerenciarCompra {
             String valorPagoStr = JOptionPane
                     .showInputDialog("Digite o valor que deseja pagar (obs: insira com ponto ao invés da vírgula):");
 
-            // Verifica se o usuário cancelou a entrada
             if (valorPagoStr == null) {
                 return -1;
             }
 
             float valorPago = Float.parseFloat(valorPagoStr);
 
-            // Verifica se o valor pago é válido
             while (valorPago < 0 || valorPago > faltaPagar) {
                 valorPagoStr = JOptionPane.showInputDialog(
                         "Valor excedeu o valor total a pagar. Digite novamente o valor que deseja pagar:");
 
-                // Verificar se o usuário cancelou a entrada
                 if (valorPagoStr == null) {
                     return -1;
                 }
@@ -607,17 +565,15 @@ public class GerenciarCompra {
         }
     }
 
-    // (f) Busca de uma compra pelo número
     public Compra buscarCompraPeloNumero(int numeroCompra, List<Compra> listaCompras) {
         for (Compra compra : listaCompras) {
             if (compra.getIdentificador() == numeroCompra) {
                 return compra;
             }
         }
-        return null; // Compra não encontrada
+        return null;
     }
 
-    // (g) Relação de todas as compras que não foram pagas ainda;
     public List<Compra> listarComprasNaoPagas() {
         List<Compra> comprasNaoPagas = new ArrayList<>();
         for (Compra compra : getListaCompras()) {
@@ -651,11 +607,10 @@ public class GerenciarCompra {
         }
     }
 
-    // (h) Relação das 10 últimas compras pagas;
     public List<Compra> listarUltimas10ComprasPagas() {
         List<Compra> comprasPagas = new ArrayList<>();
         List<Compra> todasCompras = getListaCompras();
-        // Filtra apenas as compras pagas
+
         todasCompras.stream()
                 .filter(compra -> compra.getTotalPago() == compra.getValorTotal())
                 .sorted(Comparator.comparing(Compra::getDataCompra).reversed())
@@ -676,19 +631,18 @@ public class GerenciarCompra {
             }
 
             if (ultimas10ComprasPagas.size() == 10) {
-                break; // Parar depois de encontrar as últimas 10 compras pagas
+                break;
             }
         }
 
         return ultimas10ComprasPagas;
     }
 
-    // (i) Apresentação das informações da compra mais cara;
     public Compra encontrarCompraMaisCara() {
         List<Compra> todasCompras = getListaCompras();
 
         if (todasCompras.isEmpty()) {
-            return null; // Retorna null se não houver compras
+            return null;
         }
 
         Compra compraMaisCara = todasCompras.get(0);
@@ -702,13 +656,12 @@ public class GerenciarCompra {
         return compraMaisCara;
     }
 
-    // (j) Apresentação das informações da compra mais barata;
     public Compra encontrarCompraMaisBarata(List<Compra> compras) {
         if (compras.isEmpty()) {
             return null;
         }
 
-        Compra compraMaisBarata = compras.get(0); // Inicializa com a primeira compra
+        Compra compraMaisBarata = compras.get(0);
 
         for (Compra compra : compras) {
             if (compra.getValorTotal() < compraMaisBarata.getValorTotal()) {

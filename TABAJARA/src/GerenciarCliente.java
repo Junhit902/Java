@@ -38,7 +38,7 @@ public class GerenciarCliente {
 
         String nome = JOptionPane.showInputDialog("Digite o seu nome completo:").toUpperCase();
         String cpf = JOptionPane.showInputDialog("Digite o seu CPF (123.456.789-01):");
-        // Verifica se o nome ou CPF já existem na lista de clientes
+
         if (clienteFisicaJaCadastrado(nome, cpf)) {
             JOptionPane.showMessageDialog(null, "Um cliente com o mesmo nome ou CPF já está cadastrado.", "Erro",
                     JOptionPane.ERROR_MESSAGE);
@@ -84,7 +84,7 @@ public class GerenciarCliente {
 
         String nomeFantasia = JOptionPane.showInputDialog("Digite o seu nome fantasia:").toUpperCase();
         String cnpj = JOptionPane.showInputDialog("Digite o seu CNPJ:").replaceAll("[^0-9]", "");
-        // Verifique se o nome fantasia ou CNPJ já existem na lista de clientes
+
         if (clienteJuridicoJaCadastrado(nomeFantasia, cnpj)) {
             JOptionPane.showMessageDialog(null, "Uma empresa com o mesmo nome fantasia ou CNPJ já está cadastrada.",
                     "Erro", JOptionPane.ERROR_MESSAGE);
@@ -126,7 +126,6 @@ public class GerenciarCliente {
         salvarClienteEmArquivo(cj, "Pessoa Jurídica");
     }
 
-    // Método para verificar se um cliente já está cadastrado por nome ou CPF
     private boolean clienteFisicaJaCadastrado(String nome, String cpf) {
         for (Cliente cliente : listaClientes) {
             if (cliente instanceof PessoaFisica) {
@@ -139,8 +138,6 @@ public class GerenciarCliente {
         return false;
     }
 
-    // Método para verificar se uma empresa já está cadastrada por nome fantasia ou
-    // CNPJ
     private boolean clienteJuridicoJaCadastrado(String nomeFantasia, String cnpj) {
         for (Cliente cliente : listaClientes) {
             if (cliente instanceof PessoaJuridica) {
@@ -178,7 +175,6 @@ public class GerenciarCliente {
                     writer.write("\n");
                 }
 
-                // Adiciona uma linha em branco para separar os dados dos clientes
                 writer.write("\n");
 
                 JOptionPane.showMessageDialog(null, "Cliente salvo no arquivo 'clientes.txt' com sucesso.", "Sucesso",
@@ -205,8 +201,7 @@ public class GerenciarCliente {
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivoOriginal, false))) {
                 for (Cliente cliente : listaClientes) {
-                    // Escreva as informações do cliente no arquivo, da mesma maneira que no método
-                    // salvarClienteEmArquivo
+
                     if (cliente instanceof PessoaFisica) {
                         String dadosCliente = ((PessoaFisica) cliente).toString();
                         writer.write(dadosCliente);
@@ -256,7 +251,7 @@ public class GerenciarCliente {
     }
 
     public void deletarClientePeloCPF() {
-        // Carregando os CPFs dos clientes do arquivo
+
         List<String> cpfsClientes = new ArrayList<>();
 
         for (Cliente cliente : listaClientes) {
@@ -265,12 +260,11 @@ public class GerenciarCliente {
             }
         }
 
-        // Exibindo os CPFs dos clientes em um JOptionPane
         Object cpfSelecionado = JOptionPane.showInputDialog(null, "Escolha o CPF para deletar (Pessoa Física)",
                 "Deletar Cliente", JOptionPane.QUESTION_MESSAGE, null, cpfsClientes.toArray(), cpfsClientes.get(0));
 
         if (cpfSelecionado != null) {
-            // O usuário selecionou um CPF, agora podemos prosseguir com a exclusão
+
             String cpfClienteSelecionado = cpfSelecionado.toString();
             List<Cliente> clientesParaRemover = new ArrayList<>();
 
@@ -283,7 +277,7 @@ public class GerenciarCliente {
                 }
             }
             listaClientes.removeAll(clientesParaRemover);
-            atualizarArquivoClientes(); // Atualizar o arquivo após a remoção dos clientes
+            atualizarArquivoClientes();
             if (clientesParaRemover.isEmpty()) {
                 JOptionPane.showMessageDialog(null,
                         "Nenhum cliente com o CPF '" + cpfClienteSelecionado + "' foi encontrado (Pessoa Física).",
@@ -299,7 +293,7 @@ public class GerenciarCliente {
     }
 
     public void deletarClientePeloCNPJ() {
-        // Carregando os CNPJs dos clientes do arquivo
+
         List<String> cnpjsClientes = new ArrayList<>();
 
         for (Cliente cliente : listaClientes) {
@@ -308,12 +302,11 @@ public class GerenciarCliente {
             }
         }
 
-        // Exibindo os CNPJs dos clientes em um JOptionPane
         Object cnpjSelecionado = JOptionPane.showInputDialog(null, "Escolha o CNPJ para deletar (Pessoa Jurídica)",
                 "Deletar Cliente", JOptionPane.QUESTION_MESSAGE, null, cnpjsClientes.toArray(), cnpjsClientes.get(0));
 
         if (cnpjSelecionado != null) {
-            // O usuário selecionou um CNPJ, agora podemos prosseguir com a exclusão
+
             String cnpjClienteSelecionado = cnpjSelecionado.toString();
             List<Cliente> clientesParaRemover = new ArrayList<>();
 
@@ -326,7 +319,7 @@ public class GerenciarCliente {
                 }
             }
             listaClientes.removeAll(clientesParaRemover);
-            atualizarArquivoClientes(); // Atualiza o arquivo após a remoção dos clientes
+            atualizarArquivoClientes();
             if (clientesParaRemover.isEmpty()) {
                 JOptionPane.showMessageDialog(null,
                         "Nenhum cliente com o CNPJ '" + cnpjClienteSelecionado + "' foi encontrado (Pessoa Jurídica).",
@@ -349,19 +342,18 @@ public class GerenciarCliente {
                     JOptionPane.INFORMATION_MESSAGE, icon);
             return;
         }
-        // Carregando os nomes dos clientes do arquivo
+
         List<String> nomesClientes = new ArrayList<>();
 
         for (Cliente cliente : listaClientes) {
             nomesClientes.add(cliente.getNome());
         }
 
-        // Exibindo os nomes dos clientes em um JOptionPane
         Object nomeSelecionado = JOptionPane.showInputDialog(null, "Escolha o cliente para deletar", "Deletar Cliente",
                 JOptionPane.QUESTION_MESSAGE, null, nomesClientes.toArray(), nomesClientes.get(0));
 
         if (nomeSelecionado != null) {
-            // O usuário selecionou um nome, agora podemos prosseguir com a exclusão
+
             String nomeClienteSelecionado = nomeSelecionado.toString();
             List<Cliente> clientesParaRemover = new ArrayList<>();
 
@@ -371,7 +363,7 @@ public class GerenciarCliente {
                 }
             }
             listaClientes.removeAll(clientesParaRemover);
-            atualizarArquivoClientes(); // Mova a chamada para atualizar o arquivo após a remoção dos clientes
+            atualizarArquivoClientes();
             if (clientesParaRemover.isEmpty()) {
                 JOptionPane.showMessageDialog(null,
                         "Nenhum cliente com o nome '" + nomeClienteSelecionado + "' foi encontrado.", "Erro",
@@ -386,7 +378,6 @@ public class GerenciarCliente {
         }
     }
 
-    // Construtor vazio
     public GerenciarCliente() {
 
     }
@@ -403,7 +394,7 @@ public class GerenciarCliente {
                 while ((linha = reader.readLine()) != null) {
                     if (linha.startsWith("==== PESSOA FÍSICA ====")) {
                         PessoaFisica pessoaFisica = new PessoaFisica();
-                        Endereco endereco = new Endereco(); // Criando um objeto Endereco para cada pessoa física
+                        Endereco endereco = new Endereco();
                         while ((linha = reader.readLine()) != null && !linha.isEmpty()) {
                             if (linha.startsWith("Nome completo: ")) {
                                 pessoaFisica.setNome(linha.replace("Nome completo: ", ""));
@@ -433,11 +424,11 @@ public class GerenciarCliente {
                                 endereco.setEstado(linha.replace("Estado: ", ""));
                             }
                         }
-                        pessoaFisica.setEndereco(endereco); // Associando o objeto de endereço à pessoa física
+                        pessoaFisica.setEndereco(endereco);
                         listaClientes.add(pessoaFisica);
                     } else if (linha.startsWith("==== PESSOA JURÍDICA ====")) {
                         PessoaJuridica pessoaJuridica = new PessoaJuridica();
-                        Endereco endereco = new Endereco(); // Criando um objeto Endereco para cada pessoa jurídica
+                        Endereco endereco = new Endereco();
                         while ((linha = reader.readLine()) != null && !linha.isEmpty()) {
                             if (linha.startsWith("Nome fantasia: ")) {
                                 pessoaJuridica.setNome(linha.replace("Nome fantasia: ", ""));
@@ -470,7 +461,7 @@ public class GerenciarCliente {
                                 endereco.setEstado(linha.replace("Estado: ", ""));
                             }
                         }
-                        pessoaJuridica.setEndereco(endereco); // Associando o objeto de endereço à pessoa jurídica
+                        pessoaJuridica.setEndereco(endereco);
                         listaClientes.add(pessoaJuridica);
                     }
                 }
@@ -487,7 +478,7 @@ public class GerenciarCliente {
                 return cliente;
             }
         }
-        return null; // Retorna null se não encontrar nenhum cliente com o CPF fornecido
+        return null;
     }
 
     public Cliente encontrarClientePessoaJuridicaPorCNPJ(String cnpj) {
@@ -496,14 +487,13 @@ public class GerenciarCliente {
                 return cliente;
             }
         }
-        return null; // Retorna null se não encontrar nenhum cliente com o CNPJ fornecido
+        return null;
     }
 
     public ArrayList<Cliente> getListaClientes() {
         return listaClientes;
     }
 
-    // Método para obter uma representação em string da lista de clientes
     public String obterListaClientesString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Lista de Clientes:\n");
@@ -515,21 +505,17 @@ public class GerenciarCliente {
         return sb.toString();
     }
 
-    // Método para exibir a lista de clientes por meio do JOptionPane
     public void exibirListaClientes() {
         String listaClientesString = obterListaClientesString();
         JOptionPane.showMessageDialog(null, listaClientesString, "Lista de Clientes", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    // (a) Relação de todos os Clientes que possuem o nome iniciado por uma
-    // determinada sequência de caracteres;
     public List<Cliente> buscarClientesPorNome(String sequencia) {
         List<Cliente> clientesEncontrados = new ArrayList<>();
-        // Certifique-se de que a lista de clientes não está vazia
+
         if (listaClientes != null && !listaClientes.isEmpty()) {
             for (Cliente cliente : listaClientes) {
-                // Verifique se o nome do cliente inicia com a sequência fornecida (ignorando
-                // maiúsculas/minúsculas)
+
                 if (cliente.getNome().toLowerCase().startsWith(sequencia.toLowerCase())) {
                     clientesEncontrados.add(cliente);
                 }

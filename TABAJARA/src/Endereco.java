@@ -6,12 +6,11 @@ public class Endereco {
     private String cidade;
     private String estado;
 
-    //Construtor Vazio
-    public Endereco(){
+    public Endereco() {
 
     }
 
-    public Endereco(String rua, int numero, String bairro, String cep, String cidade, String estado){
+    public Endereco(String rua, int numero, String bairro, String cep, String cidade, String estado) {
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;
@@ -70,7 +69,8 @@ public class Endereco {
 
     @Override
     public String toString() {
-        return "Rua: " + rua + "\nNúmero: " + numero + "\nBairro: " + bairro + "\nCEP: " + cep + "\nCidade: " + cidade + "\nEstado: " + estado;
+        return "Rua: " + rua + "\nNúmero: " + numero + "\nBairro: " + bairro + "\nCEP: " + cep + "\nCidade: " + cidade
+                + "\nEstado: " + estado;
     }
 
 }

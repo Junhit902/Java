@@ -21,7 +21,6 @@ public class Produto {
         this.valorUnitario = valorUnitario;
     }
 
-    // Construtor vazio
     public Produto() {
     }
 

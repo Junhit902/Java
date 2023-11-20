@@ -39,15 +39,12 @@ public class Relatorio {
                     + "[11] Relação do valor total de compras feitas em cada mês nos últimos 12 meses\n"
                     + "Clique em cancelar para voltar ao menu principal.");
 
-            // Se a pessoa clicar no "cancelar" ou fechar a janela do JOptionPane, sai do
-            // sistema
             if (opcaoStr == null) {
                 opcao = 8;
             } else {
-                // Tratamento de exceções, para que o programa continue a funcionar após o
-                // tratamento da exceção
+
                 try {
-                    opcao = Integer.parseInt(opcaoStr); // Convertendo uma String para int
+                    opcao = Integer.parseInt(opcaoStr);
                     switch (opcao) {
                         case 1:
                             String sequencia = JOptionPane.showInputDialog("Digite a sequência de caracteres:");
@@ -184,7 +181,7 @@ public class Relatorio {
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Entrada inválida. Por favor, insira um número inteiro.",
                             "Opção inserida: " + opcaoStr, JOptionPane.ERROR_MESSAGE);
-                    opcao = 0; // Definindo a opcao como 0 em caso de entrada inválida
+                    opcao = 0;
                 }
             }
         } while (opcao != 8);

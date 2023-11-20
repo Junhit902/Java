@@ -12,12 +12,11 @@ public class GerenciarProduto {
 
         produto.setNomeProduto(JOptionPane.showInputDialog("Digite o nome do produto:"));
 
-        // Verifica se um produto com o mesmo nome já existe
         if (produtoJaCadastrado(produto.getNomeProduto())) {
             JOptionPane.showMessageDialog(null,
                     "Um produto com o mesmo nome já está cadastrado. Por favor, escolha um nome diferente.", "Erro",
                     JOptionPane.ERROR_MESSAGE);
-            return; // Sai do método para evitar o cadastro duplicado
+            return;
         }
 
         produto.setValorUnitario(Double
@@ -76,7 +75,7 @@ public class GerenciarProduto {
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo, false))) {
                 for (Produto produto : listaProdutos) {
-                    // Escrevendo as informações do produto no arquivo
+
                     writer.write("\n\nCódigo do produto: " + produto.getCodigo());
                     writer.write("\nNOME DO PRODUTO: " + produto.getNomeProduto());
                     writer.write("\nDescrição: " + produto.getDescricao());
@@ -87,10 +86,9 @@ public class GerenciarProduto {
                         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                         writer.write("\nData de validade: " + dateFormat.format(dataValidade));
                     } else {
-                        writer.write("\nData de validade: N/A"); // Se a data de validade não estiver definida
+                        writer.write("\nData de validade: N/A");
                     }
 
-                    // Adiciona uma linha em branco para separar os dados dos produtos
                     writer.write("\n");
                 }
 
@@ -103,7 +101,6 @@ public class GerenciarProduto {
         }
     }
 
-    // construtor vazio
     public GerenciarProduto() {
 
     }
@@ -116,7 +113,7 @@ public class GerenciarProduto {
             try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
                 String linha;
                 while ((linha = reader.readLine()) != null) {
-                    // Verifica se a linha contém dados de um produto
+
                     if (linha.startsWith("Código do produto: ")) {
                         int codigo = Integer.parseInt(linha.replace("Código do produto: ", ""));
                         String nomeProduto = reader.readLine().replace("NOME DO PRODUTO: ", "");
@@ -129,8 +126,6 @@ public class GerenciarProduto {
                             dataValidade = dateFormat.parse(dataValidadeStr);
                         }
 
-                        // Criando um novo objeto Produto com os dados lidos e adicione-o à lista de
-                        // produtos
                         Produto produto = new Produto(codigo, nomeProduto, descricao, valorUnitario, dataValidade);
                         listaProdutos.add(produto);
                     }
@@ -157,8 +152,7 @@ public class GerenciarProduto {
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo, false))) {
                 for (Produto produto : listaProdutos) {
-                    // Escrevendo as informações do produto no arquivo, da mesma maneira que no
-                    // método salvarProdutosEmArquivo
+
                     writer.write("\n\nCódigo do produto: " + produto.getCodigo());
                     writer.write("\nNOME DO PRODUTO: " + produto.getNomeProduto());
                     writer.write("\nDescrição: " + produto.getDescricao());
@@ -197,7 +191,6 @@ public class GerenciarProduto {
         return listaProdutos;
     }
 
-    // Método para obter uma representação em string da lista de produtos
     public String obterListaProdutosString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Lista de Produtos:\n");
@@ -209,13 +202,11 @@ public class GerenciarProduto {
         return sb.toString();
     }
 
-    // Método para exibir a lista de produtos por meio do JOptionPane
     public void exibirListaProdutos() {
         String listaProdutosString = obterListaProdutosString();
         JOptionPane.showMessageDialog(null, listaProdutosString, "Lista de Produtos", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    // (b) Relação de todos os Produtos
     public void exibirListaProdutosSimplificada(List<Produto> produtos) {
         if (produtos.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Não há produtos cadastrados.", "Lista de Produtos",
@@ -233,20 +224,17 @@ public class GerenciarProduto {
         }
     }
 
-    // (c) Busca de um produto pelo nome;
     public String buscarProdutoPorNome(String nome) {
         for (Produto produto : getListaProdutos()) {
             if (produto.getNomeProduto().equalsIgnoreCase(nome)) {
-                // Produto encontrado, retorna uma String com os detalhes
+
                 return produto.toString();
             }
         }
-        // Produto não encontrado, retorna uma mensagem
+
         return "Produto não encontrado com o nome: " + nome;
     }
 
-    // (d) Relação de produtos que são perecíveis e que estão com a data de validade
-    // vencida;
     public List<Produto> verificarProdutosVencidosParaData(String dataStr) {
         List<Produto> produtosVencidos = new ArrayList<>();
 

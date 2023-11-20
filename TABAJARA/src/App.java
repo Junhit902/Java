@@ -34,15 +34,11 @@ public class App {
                     + "[7] Relátorios\n"
                     + "[8] Sair");
 
-            // Se a pessoa clicar no "cancelar" ou fechar a janela do JOptionPane, sai do
-            // sistema
             if (opcaoStr == null) {
                 opcao = 8;
             } else {
-                // Tratamento de exceções, para que o programa continue a funcionar após o
-                // tratamento da exceção
                 try {
-                    opcao = Integer.parseInt(opcaoStr); // Convertendo uma String para int
+                    opcao = Integer.parseInt(opcaoStr);
                     switch (opcao) {
                         case 1:
                             JOptionPane.showMessageDialog(null, "Cadastrar Cliente foi selecionada");
@@ -89,7 +85,7 @@ public class App {
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Entrada inválida. Por favor, insira um número inteiro.",
                             "Opção inserida: " + opcaoStr, JOptionPane.ERROR_MESSAGE);
-                    opcao = 0; // Definindo a opcao como 0 em caso de entrada inválida
+                    opcao = 0;
                 }
             }
         } while (opcao != 8);
