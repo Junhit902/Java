@@ -54,3 +54,17 @@ CEP: 19387-329
 Cidade: Parana
 Estado: Parana
 
+
+==== PESSOA FÍSICA ====
+Nome completo: THIAGO JUN HONMA
+CPF: 235.276.358-40
+Máx. de parcelas: 10
+Data de cadastro: 19/11/2023
+==== ENDEREÇO ====
+Rua: Rua Arthur Cagliari
+Número: 623
+Bairro: Jardim São Conrado
+CEP: 18076-210
+Cidade: Sorocaba
+Estado: SP
+
