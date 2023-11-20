@@ -5,7 +5,6 @@ public class Cliente {
     private Endereco endereco;
     private Date dataDeCadastro;
 
-    // Construtor Vazio
     public Cliente() {
         this.endereco = new Endereco();
     }

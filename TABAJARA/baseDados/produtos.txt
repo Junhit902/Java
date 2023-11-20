@@ -4,11 +4,32 @@ Código do produto: 1
 NOME DO PRODUTO: Barra de chocolate
 Descrição: 70% amargo
 Valor unitário: R$5.98
-Data de validade: 21/11/2023
+Data de validade: 29/11/2023
 
 
 Código do produto: 2
 NOME DO PRODUTO: Cereal
-Descrição: Nescau
+Descrição: Marca: Nescau
 Valor unitário: R$11.98
-Data de validade: 30/11/2023
+Data de validade: 20/12/2023
+
+
+Código do produto: 3
+NOME DO PRODUTO: Playstation 5
+Descrição: cor: branca
+Valor unitário: R$3700.0
+Data de validade: N/A
+
+
+Código do produto: 4
+NOME DO PRODUTO: Livro
+Descrição: Gênero: terror
+Valor unitário: R$31.0
+Data de validade: N/A
+
+
+Código do produto: 5
+NOME DO PRODUTO: Maça
+Descrição: Maça gala
+Valor unitário: R$2.98
+Data de validade: 20/11/2023

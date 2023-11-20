@@ -1,11 +1,11 @@
 
 ==== PESSOA FÍSICA ====
-Nome completo: THIAGO JUN HONMA
-CPF: 235.276.358-40
+Nome completo: MANOEL GOMES
+CPF: 235.849.873-50
 Máx. de parcelas: 10
 Data de cadastro: 19/11/2023
 ==== ENDEREÇO ====
-Rua: Arthur Cagliari
+Rua: Rua Arthur Cagliari
 Número: 623
 Bairro: Jardim São Conrado
 CEP: 18076-210
@@ -14,15 +14,56 @@ Estado: SP
 
 
 ==== PESSOA FÍSICA ====
-Nome completo: THIAGAO
-CPF: 127.42.2124
-Máx. de parcelas: 12
-Data de cadastro: 01/01/2002
+Nome completo: EVERSON OLHOS
+CPF: 209.840.581-40
+Máx. de parcelas: 20
+Data de cadastro: 19/11/2023
 ==== ENDEREÇO ====
-Rua: Rua Logradouro
-Número: 124
-Bairro: jorge
-CEP: 124.0.0.1
-Cidade: voto
-Estado: sp
+Rua: Rua João Martinho
+Número: 390
+Bairro: Jardim Clarice
+CEP: 18303-340
+Cidade: São Paulo
+Estado: SP
 
+
+==== PESSOA FÍSICA ====
+Nome completo: PEDRO PARKER
+CPF: 249.489.502-30
+Máx. de parcelas: 10
+Data de cadastro: 19/11/2023
+==== ENDEREÇO ====
+Rua: Rua Arthur Cagliari
+Número: 623
+Bairro: Jardim São Conrado
+CEP: 18076-210
+Cidade: Sorocaba
+Estado: SP
+
+==== PESSOA JURÍDICA ====
+Nome fantasia: TECNOLVA SOLUÇÕES
+CNPJ: 12345678000190
+Razão Social: Inovação Tech Ltda.
+Prazo Máx. (em dias) para pagamento: 10
+Data de cadastro: 19/11/2023
+==== ENDEREÇO ====
+Rua: ==== ENDEREÇO ====
+Número: 123
+Bairro: Jardim São Camilo
+CEP: 19387-329
+Cidade: Parana
+Estado: Parana
+
+
+==== PESSOA FÍSICA ====
+Nome completo: THIAGO JUN HONMA
+CPF: 235.276.358-40
+Máx. de parcelas: 10
+Data de cadastro: 19/11/2023
+==== ENDEREÇO ====
+Rua: Rua Arthur Cagliari
+Número: 623
+Bairro: Jardim São Conrado
+CEP: 18076-210
+Cidade: Sorocaba
+Estado: SP
