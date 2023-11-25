@@ -9,8 +9,8 @@ Valor Total: R$59.8
 Nome do produto: Barra de chocolate
 Preço unitário: R$5.980000019073486
 Quantidade: 10
-Total Pago: R$59.8
-Falta Pagar: R$0.0
+Total Pago: R$50.0
+Falta Pagar: R$9.799999
 
 
 
@@ -37,8 +37,8 @@ Valor Total: R$3700.0
 Nome do produto: Playstation 5
 Preço unitário: R$3700.0
 Quantidade: 1
-Total Pago: R$3500.0
-Falta Pagar: R$200.0
+Total Pago: R$3700.0
+Falta Pagar: R$0.0
 
 
 

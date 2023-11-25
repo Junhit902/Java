@@ -40,20 +40,6 @@ CEP: 18076-210
 Cidade: Sorocaba
 Estado: SP
 
-==== PESSOA JURÍDICA ====
-Nome fantasia: TECNOLVA SOLUÇÕES
-CNPJ: 12345678000190
-Razão Social: Inovação Tech Ltda.
-Prazo Máx. (em dias) para pagamento: 10
-Data de cadastro: 19/11/2023
-==== ENDEREÇO ====
-Rua: ==== ENDEREÇO ====
-Número: 123
-Bairro: Jardim São Camilo
-CEP: 19387-329
-Cidade: Parana
-Estado: Parana
-
 
 ==== PESSOA FÍSICA ====
 Nome completo: THIAGO JUN HONMA
@@ -67,4 +53,18 @@ Bairro: Jardim São Conrado
 CEP: 18076-210
 Cidade: Sorocaba
 Estado: SP
+
+==== PESSOA JURÍDICA ====
+Nome fantasia: TECNOLVA SOLUÇÕES
+CNPJ: 12345678000190
+Razão Social: Inovação Tech Ltda.
+Prazo Máx. (em dias) para pagamento: 10
+Data de cadastro: 19/11/2023
+==== ENDEREÇO ====
+Rua: Arthur Humberto
+Número: 123
+Bairro: Jardim São Camilo
+CEP: 19387-329
+Cidade: Londrina
+Estado: Parana
 

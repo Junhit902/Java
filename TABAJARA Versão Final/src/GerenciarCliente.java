@@ -446,7 +446,7 @@ public class GerenciarCliente {
                                     dataDeCadastro = dateFormat.parse(dataDeCadastroStr);
                                 }
                                 pessoaJuridica.setDataDeCadastro(dataDeCadastro);
-                            } else if (linha.startsWith("==== ENDEREÇO ====")) {
+                            } else if (linha.startsWith("Rua: ")) {
                                 endereco.setRua(linha.replace("Rua: ", ""));
                             } else if (linha.startsWith("Número: ")) {
                                 endereco.setNumero(Integer.parseInt(linha.replace("Número: ", "")));
