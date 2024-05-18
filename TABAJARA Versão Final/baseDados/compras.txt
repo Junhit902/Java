@@ -9,8 +9,8 @@ Valor Total: R$59.8
 Nome do produto: Barra de chocolate
 Preço unitário: R$5.980000019073486
 Quantidade: 10
-Total Pago: R$50.0
-Falta Pagar: R$9.799999
+Total Pago: R$59.8
+Falta Pagar: R$0.0
 
 
 

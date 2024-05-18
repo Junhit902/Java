@@ -14,36 +14,8 @@ Estado: SP
 
 
 ==== PESSOA FÍSICA ====
-Nome completo: EVERSON OLHOS
-CPF: 209.840.581-40
-Máx. de parcelas: 20
-Data de cadastro: 19/11/2023
-==== ENDEREÇO ====
-Rua: Rua João Martinho
-Número: 390
-Bairro: Jardim Clarice
-CEP: 18303-340
-Cidade: São Paulo
-Estado: SP
-
-
-==== PESSOA FÍSICA ====
 Nome completo: PEDRO PARKER
 CPF: 249.489.502-30
-Máx. de parcelas: 10
-Data de cadastro: 19/11/2023
-==== ENDEREÇO ====
-Rua: Rua Arthur Cagliari
-Número: 623
-Bairro: Jardim São Conrado
-CEP: 18076-210
-Cidade: Sorocaba
-Estado: SP
-
-
-==== PESSOA FÍSICA ====
-Nome completo: THIAGO JUN HONMA
-CPF: 235.276.358-40
 Máx. de parcelas: 10
 Data de cadastro: 19/11/2023
 ==== ENDEREÇO ====
