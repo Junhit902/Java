@@ -1,0 +1,42 @@
+
+==== PESSOA FÍSICA ====
+Nome completo: MANOEL GOMES
+CPF: 235.849.873-50
+Máx. de parcelas: 10
+Data de cadastro: 19/11/2023
+==== ENDEREÇO ====
+Rua: Rua Arthur Cagliari
+Número: 623
+Bairro: Jardim São Conrado
+CEP: 18076-210
+Cidade: Sorocaba
+Estado: SP
+
+
+==== PESSOA FÍSICA ====
+Nome completo: PEDRO PARKER
+CPF: 249.489.502-30
+Máx. de parcelas: 10
+Data de cadastro: 19/11/2023
+==== ENDEREÇO ====
+Rua: Rua Arthur Cagliari
+Número: 623
+Bairro: Jardim São Conrado
+CEP: 18076-210
+Cidade: Sorocaba
+Estado: SP
+
+==== PESSOA JURÍDICA ====
+Nome fantasia: TECNOLVA SOLUÇÕES
+CNPJ: 12345678000190
+Razão Social: Inovação Tech Ltda.
+Prazo Máx. (em dias) para pagamento: 10
+Data de cadastro: 19/11/2023
+==== ENDEREÇO ====
+Rua: Arthur Humberto
+Número: 123
+Bairro: Jardim São Camilo
+CEP: 19387-329
+Cidade: Londrina
+Estado: Parana
+
